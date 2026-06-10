@@ -1,0 +1,59 @@
+<div class="container">
+    <mat-toolbar class="custom-toolbar">
+        <button matButton class="boton-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuobjetos">
+            <mat-icon aria-hidden="false" ,aria-label="Example home icon" , fontIcon="home">
+                objetos
+            </mat-icon></button>
+
+    </mat-toolbar>
+    <mat-menu #menuobjetos="matMenu">
+        <button mat-menu-item>LISTAR ITEM</button>
+        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
+        <button mat-menu-item>querie</button>
+    </mat-menu>
+
+
+    <mat-toolbar class="custom-toolbar">
+        <button matButton class="boton-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuusuarios">
+            <mat-icon aria-hidden="false" ,aria-label="Example home icon" , fontIcon="home">
+                objetos
+            </mat-icon></button>
+
+    </mat-toolbar>
+    <mat-menu #menuusuarios="matMenu">
+        <button mat-menu-item>LISTAR ITEM</button>
+        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
+        <button mat-menu-item>querie</button>
+    </mat-menu>
+
+
+    <mat-toolbar class="custom-toolbar">
+        <button matButton class="boton-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menucategorias">
+            <mat-icon aria-hidden="false" ,aria-label="Example home icon" , fontIcon="home">
+                objetos
+            </mat-icon></button>
+
+    </mat-toolbar>
+    <mat-menu #menucategorias="matMenu">
+        <button mat-menu-item>LISTAR categorias</button>
+        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
+        <button mat-menu-item>querie</button>
+    </mat-menu>
+
+
+    <mat-toolbar class="custom-toolbar">
+        <button matButton class="boton-rojo" aria-label="Example icon-button with menu icon"
+            [matMenuTriggerFor]="menuchats">
+            <mat-icon aria-hidden="false" ,aria-label="Example home icon" , fontIcon="home">
+                objetos
+            </mat-icon></button>
+
+    </mat-toolbar>
+    <mat-menu #menuchats="matMenu">
+        <button mat-menu-item>LISTAR chats</button>
+    </mat-menu>
+
+</div>
