@@ -1,0 +1,84 @@
+<div class="registro-container">
+  <mat-card class="registro-card">
+    <mat-card-header>
+      <mat-card-title>Crear cuenta</mat-card-title>
+      <mat-card-subtitle>TuTrade</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form #registroForm="ngForm" (ngSubmit)="registrarse()">
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Nombre de usuario</mat-label>
+          <input
+            matInput
+            type="text"
+            name="usernameUser"
+            [(ngModel)]="datos.usernameUser"
+            required
+            minlength="3"
+          />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Correo electrónico</mat-label>
+          <input
+            matInput
+            type="email"
+            name="emailUser"
+            [(ngModel)]="datos.emailUser"
+            required
+            email
+          />
+          <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="campo">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            [type]="ocultarPassword ? 'password' : 'text'"
+            name="password_hashUser"
+            [(ngModel)]="datos.password_hashUser"
+            required
+            minlength="4"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="ocultarPassword = !ocultarPassword"
+            [attr.aria-label]="'Mostrar contraseña'"
+          >
+            <mat-icon>{{ ocultarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        @if (error) {
+          <p class="error-mensaje">{{ error }}</p>
+        }
+        @if (exito) {
+          <p class="exito-mensaje">¡Cuenta creada! Redirigiendo al login…</p>
+        }
+
+        <button
+          matButton="filled"
+          color="primary"
+          type="submit"
+          class="boton-registro"
+          [disabled]="registroForm.invalid || cargando || exito"
+        >
+          @if (cargando) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            Registrarme
+          }
+        </button>
+
+        <p class="link-login">
+          ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a>
+        </p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
