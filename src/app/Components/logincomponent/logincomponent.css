@@ -1,0 +1,42 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+}
+
+.campo {
+  width: 100%;
+}
+
+.boton-login {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.error-mensaje {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.link-registro {
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
