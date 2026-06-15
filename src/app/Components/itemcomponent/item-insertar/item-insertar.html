@@ -1,0 +1,37 @@
+<div class="container">
+  <div style="text-align: center; margin: 3%"><h2>Registro de Autores</h2></div>
+  <div style="text-align: center">
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field class="example-full-width">
+        <mat-label>tituloitem</mat-label>
+        <input matInput formControlName="titulo" />
+      </mat-form-field>
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>descripcion</mat-label>
+        <input matInput formControlName="descripcion" />
+      </mat-form-field>
+      <br />
+      <mat-form-field>
+        <mat-label>condicion</mat-label>
+        <textarea matInput formControlName="condicion"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>status</mat-label>
+        <textarea matInput formControlName="status"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>user</mat-label>
+        <textarea matInput formControlName="user"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>categoria</mat-label>
+        <textarea matInput formControlName="categoria"></textarea>
+      </mat-form-field>
+      <div>
+        <button matButton="elevated">Registrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
