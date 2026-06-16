@@ -1,68 +1,44 @@
-<div class="container">
-    <mat-toolbar class="custom-toolbar">
-        <button matButton class="boton-rojo" aria-label="Menú de objetos"
-            [matMenuTriggerFor]="menuobjetos">
-            <mat-icon aria-hidden="false" aria-label="Icono de objetos">inventory_2</mat-icon>
-            objetos
-        </button>
+<mat-toolbar color="primary" class="navbar">
+  <!-- Marca -->
+  <a class="marca" routerLink="/homes">
+    <mat-icon>swap_horiz</mat-icon>
+    <span class="marca-texto">TuTrade</span>
+  </a>
 
-    </mat-toolbar>
-    <mat-menu #menuobjetos="matMenu">
-        <button mat-menu-item>LISTAR ITEM</button>
-        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
-        <button mat-menu-item>querie</button>
+  <!-- Buscador -->
+  <div class="buscador">
+    <mat-icon class="buscador-icono">search</mat-icon>
+    <input type="text" placeholder="Buscar items..." class="buscador-input" />
+  </div>
+
+  <!-- Navegación -->
+  <nav class="nav-links">
+    <a matButton routerLink="/homes" routerLinkActive="activo">Explorar</a>
+
+    <button matButton [matMenuTriggerFor]="menuItems">Mis items</button>
+    <mat-menu #menuItems="matMenu">
+      <a mat-menu-item routerLink="/items/listaritem">Listar items</a>
+      <a mat-menu-item routerLink="/items/insertaritem">Registrar item</a>
+      <a mat-menu-item routerLink="/items/buscaritem">Buscar item</a>
     </mat-menu>
 
+    <a matButton>Trueques</a>
+  </nav>
 
-    <mat-toolbar class="custom-toolbar">
-        <button matButton class="boton-rojo" aria-label="Menú de usuarios"
-            [matMenuTriggerFor]="menuusuarios">
-            <mat-icon aria-hidden="false" aria-label="Icono de usuarios">people</mat-icon>
-            usuarios
-        </button>
+  <!-- Acciones -->
+  <div class="acciones">
+    <button mat-icon-button aria-label="Notificaciones">
+      <mat-icon>notifications</mat-icon>
+    </button>
 
-    </mat-toolbar>
-    <mat-menu #menuusuarios="matMenu">
-        <button mat-menu-item>LISTAR ITEM</button>
-        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
-        <button mat-menu-item>querie</button>
+    <button mat-icon-button [matMenuTriggerFor]="menuUsuario" aria-label="Cuenta" class="avatar">
+      <span class="avatar-iniciales">U</span>
+    </button>
+    <mat-menu #menuUsuario="matMenu">
+      <button mat-menu-item (click)="cerrarSesion()">
+        <mat-icon>logout</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
     </mat-menu>
-
-
-    <mat-toolbar class="custom-toolbar">
-        <button matButton class="boton-rojo" aria-label="Menú de categorías"
-            [matMenuTriggerFor]="menucategorias">
-            <mat-icon aria-hidden="false" aria-label="Icono de categorías">category</mat-icon>
-            categorias
-        </button>
-
-    </mat-toolbar>
-    <mat-menu #menucategorias="matMenu">
-        <button mat-menu-item>LISTAR categorias</button>
-        <button mat-menu-item>REGISTRAR+ELIMINAR+EDITAR</button>
-        <button mat-menu-item>querie</button>
-    </mat-menu>
-
-
-    <mat-toolbar class="custom-toolbar">
-        <button matButton class="boton-rojo" aria-label="Menú de chats"
-            [matMenuTriggerFor]="menuchats">
-            <mat-icon aria-hidden="false" aria-label="Icono de chats">chat</mat-icon>
-            chats
-        </button>
-
-    </mat-toolbar>
-    <mat-menu #menuchats="matMenu">
-        <button mat-menu-item>LISTAR chats</button>
-    </mat-menu>
-
-
-    <mat-toolbar class="custom-toolbar">
-        <button matButton class="boton-rojo" aria-label="Cerrar sesión" (click)="cerrarSesion()">
-            <mat-icon aria-hidden="false" aria-label="Icono de cerrar sesión">logout</mat-icon>
-            cerrar sesión
-        </button>
-
-    </mat-toolbar>
-
-</div>
+  </div>
+</mat-toolbar>

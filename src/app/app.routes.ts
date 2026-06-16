@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { Homecomponent } from './Components/homecomponent/homecomponent';
 import { Logincomponent } from './Components/logincomponent/logincomponent';
-import { Registrocomponent } from './Components/registrocomponent/registrocomponent';
 import { Layoutcomponent } from './Components/layoutcomponent/layoutcomponent';
 import { authGuard } from './Guards/auth.guard';
 import { Itemcomponent } from './Components/itemcomponent/itemcomponent';
@@ -22,7 +21,8 @@ export const routes: Routes = [
     },
     {
         path: 'registro',
-        component: Registrocomponent
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
         // Zona protegida: muestra el menú y requiere estar logueado

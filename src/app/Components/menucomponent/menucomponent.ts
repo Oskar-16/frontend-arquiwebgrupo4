@@ -3,12 +3,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-menucomponent',
-  imports: [MatIconModule,MatButtonModule,MatToolbarModule,MatMenuModule],
+  imports: [MatIconModule,MatButtonModule,MatToolbarModule,MatMenuModule,RouterLink,RouterLinkActive],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })

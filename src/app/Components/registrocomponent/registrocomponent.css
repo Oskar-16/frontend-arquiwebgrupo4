@@ -47,3 +47,9 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+/* Fix localizado: el notch del outline necesita fondo para que el
+   label flotante no se solape con el texto. Acotado a este componente. */
+.registro-card ::ng-deep .mdc-notched-outline__notch {
+  background-color: #fff;
+}

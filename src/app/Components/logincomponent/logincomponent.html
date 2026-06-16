@@ -1,67 +1,148 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-header>
-      <mat-card-title>Iniciar sesión</mat-card-title>
-      <mat-card-subtitle>TuTrade</mat-card-subtitle>
-    </mat-card-header>
+<div class="auth-container">
+  <!-- Marca -->
+  <div class="marca">
+    <h1 class="marca-titulo">
+      <mat-icon class="marca-icono">swap_horiz</mat-icon>
+      TuTrade
+    </h1>
+    <p class="marca-tagline">Intercambia lo que ya no usas</p>
+  </div>
 
-    <mat-card-content>
-      <form #loginForm="ngForm" (ngSubmit)="iniciarSesion()">
-        <mat-form-field appearance="outline" class="campo">
-          <mat-label>Correo electrónico</mat-label>
-          <input
-            matInput
-            type="email"
-            name="email"
-            [(ngModel)]="credenciales.email"
-            required
-            email
-          />
-          <mat-icon matSuffix>mail</mat-icon>
-        </mat-form-field>
+  <mat-card class="auth-card">
+    <mat-tab-group [(selectedIndex)]="tabActivo" mat-stretch-tabs="false">
+      <!-- ===== Iniciar sesión ===== -->
+      <mat-tab label="Iniciar sesión">
+        <form #loginForm="ngForm" (ngSubmit)="iniciarSesion()" class="auth-form">
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Correo electrónico</mat-label>
+            <input
+              matInput
+              type="email"
+              name="email"
+              [(ngModel)]="credenciales.email"
+              required
+              email
+            />
+            <mat-icon matSuffix>mail</mat-icon>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="campo">
-          <mat-label>Contraseña</mat-label>
-          <input
-            matInput
-            [type]="ocultarPassword ? 'password' : 'text'"
-            name="password"
-            [(ngModel)]="credenciales.password"
-            required
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            type="button"
-            (click)="ocultarPassword = !ocultarPassword"
-            [attr.aria-label]="'Mostrar contraseña'"
-          >
-            <mat-icon>{{ ocultarPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-          </button>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              [type]="ocultarPasswordLogin ? 'password' : 'text'"
+              name="password"
+              [(ngModel)]="credenciales.password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="ocultarPasswordLogin = !ocultarPasswordLogin"
+              aria-label="Mostrar contraseña"
+            >
+              <mat-icon>{{ ocultarPasswordLogin ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
 
-        @if (error) {
-          <p class="error-mensaje">{{ error }}</p>
-        }
-
-        <button
-          matButton="filled"
-          color="primary"
-          type="submit"
-          class="boton-login"
-          [disabled]="loginForm.invalid || cargando"
-        >
-          @if (cargando) {
-            <mat-spinner diameter="20"></mat-spinner>
-          } @else {
-            Ingresar
+          @if (errorLogin) {
+            <p class="error-mensaje">{{ errorLogin }}</p>
           }
-        </button>
 
-        <p class="link-registro">
-          ¿No tienes cuenta? <a routerLink="/registro">Regístrate</a>
-        </p>
-      </form>
-    </mat-card-content>
+          <button
+            matButton="filled"
+            type="submit"
+            class="boton-principal"
+            [disabled]="loginForm.invalid || cargandoLogin"
+          >
+            @if (cargandoLogin) {
+              <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+              Ingresar
+            }
+          </button>
+
+          <p class="link-secundario">¿Olvidaste tu contraseña?</p>
+        </form>
+      </mat-tab>
+
+      <!-- ===== Registrarse ===== -->
+      <mat-tab label="Registrarse">
+        <form #registroForm="ngForm" (ngSubmit)="registrarse()" class="auth-form">
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Nombre de usuario</mat-label>
+            <input
+              matInput
+              type="text"
+              name="usernameUser"
+              [(ngModel)]="datos.usernameUser"
+              required
+              minlength="3"
+            />
+            <mat-icon matSuffix>person</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Correo electrónico</mat-label>
+            <input
+              matInput
+              type="email"
+              name="emailUserReg"
+              [(ngModel)]="datos.emailUser"
+              required
+              email
+            />
+            <mat-icon matSuffix>mail</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="campo">
+            <mat-label>Contraseña</mat-label>
+            <input
+              matInput
+              [type]="ocultarPasswordRegistro ? 'password' : 'text'"
+              name="password_hashUser"
+              [(ngModel)]="datos.password_hashUser"
+              required
+              minlength="4"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="ocultarPasswordRegistro = !ocultarPasswordRegistro"
+              aria-label="Mostrar contraseña"
+            >
+              <mat-icon>{{ ocultarPasswordRegistro ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          @if (errorRegistro) {
+            <p class="error-mensaje">{{ errorRegistro }}</p>
+          }
+          @if (exitoRegistro) {
+            <p class="exito-mensaje">¡Cuenta creada! Ya puedes iniciar sesión.</p>
+          }
+
+          <button
+            matButton="filled"
+            type="submit"
+            class="boton-principal"
+            [disabled]="registroForm.invalid || cargandoRegistro || exitoRegistro"
+          >
+            @if (cargandoRegistro) {
+              <mat-spinner diameter="20"></mat-spinner>
+            } @else {
+              Registrarme
+            }
+          </button>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card>
+
+  <p class="nota-kyc">
+    Al registrarte recibes el rol <strong>CLIENT</strong>. Necesitas verificación
+    <strong>KYC</strong> antes de operar.
+  </p>
 </div>
