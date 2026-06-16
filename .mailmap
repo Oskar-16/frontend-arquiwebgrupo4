@@ -1,0 +1,5 @@
+# Unifica las identidades de git de una misma persona para que no aparezca
+# duplicada en `git shortlog`, `git log --use-mailmap` y herramientas que
+# respeten .mailmap. Formato: Nombre canónico <email canónico> <email viejo>
+Francesko217 <87133076+Francesko217@users.noreply.github.com> <fmontesinos@fuxion.net>
+Francesko217 <87133076+Francesko217@users.noreply.github.com> Francesko Montesinos <87133076+Francesko217@users.noreply.github.com>
