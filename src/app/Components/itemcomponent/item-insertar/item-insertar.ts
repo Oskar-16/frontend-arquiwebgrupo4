@@ -35,19 +35,16 @@ export class ItemInsertar implements OnInit{
       descripcion: ['', Validators.required],
       condicion: ['', Validators.required],
       status: ['', Validators.required],
-      user: ['', Validators.required],
       categoria: ['', Validators.required],
     });
   }
   aceptar() {
     if (this.form.valid) {
-      (
-        (this.aut.titleItem = this.form.value.titulo),
-        (this.aut.descriptionItem = this.form.value.descripcion));
-      this.aut.conditionItem = this.form.value.condicion;
-      this.aut.statusItem = this.form.value.status;
-      this.aut.user = this.form.value.user;
-      this.aut.category = this.form.value.categoria;
+      this.aut.titleItem = this.form.value.titulo;
+      this.aut.descriptionItem = this.form.value.descripcion;
+      this.aut.conditionItem = Number(this.form.value.condicion);
+      this.aut.statusItem = Number(this.form.value.status);
+      this.aut.categoryId = Number(this.form.value.categoria);
       this.iS.insert(this.aut).subscribe({
         next: () => {
           this.router.navigate(['/item/insertar']);

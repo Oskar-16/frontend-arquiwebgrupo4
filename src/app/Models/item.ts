@@ -4,6 +4,5 @@ export class Item{
     descriptionItem:string =''
     conditionItem:number=0
     statusItem:number=0
-    user:number=0
-    category:string=''
+    categoryId:number=0
 }
