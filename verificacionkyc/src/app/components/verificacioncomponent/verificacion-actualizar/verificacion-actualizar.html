@@ -7,7 +7,7 @@
 
             <mat-form-field class="example-full-width">
                 <mat-label>Usuario</mat-label>
-                <input matInput formControlName="codigo" readonly="true"/>                
+                <input matInput formControlName="id" readonly="true"/>
             </mat-form-field>
             <br />
 
@@ -16,8 +16,8 @@
                 <mat-label>Correo</mat-label>
                 <input matInput placeholder="Mario" formControlName="correo" />
                 <mat-error>
-                    @if (form.get('nombre')?.hasError('required')) {
-                    Ingrese nombre de autor!!
+                    @if (form.get('correo')?.hasError('required')) {
+                    Ingrese el correo!!
                     }
                 </mat-error>
             </mat-form-field>

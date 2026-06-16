@@ -47,11 +47,10 @@ export class VerificacionInsertar {
   }
   aceptar() {
     if (this.form.valid) {
-      ((this.ver.emailUser = this.form.value.correo),
-        (this.ver.usernameUser = this.form.value.documento));
-      this.ver.createUser = this.form.value.registro;
-      this.ver.verifiedUser = this.form.value.estado;
-      this.ver.enableUser = this.form.value.observacion;
+      this.ver.emailUser = this.form.value.correo;
+      this.ver.usernameUser = this.form.value.documento;
+      this.ver.created_atUser = this.form.value.registro;
+      this.ver.is_verifiedUser = this.form.value.estado === 2;
       this.vS.insert(this.ver).subscribe({
         next: () => {
           this.router.navigate(['/verificaciones/listar']);

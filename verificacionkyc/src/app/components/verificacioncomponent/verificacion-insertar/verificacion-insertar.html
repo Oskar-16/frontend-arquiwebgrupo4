@@ -27,7 +27,7 @@
       <br />
       <mat-form-field>
         <mat-label>Estado</mat-label>
-        <mat-select formControlName="nivel">
+        <mat-select formControlName="estado">
           @for (food of estados; track food) {
             <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
           }
