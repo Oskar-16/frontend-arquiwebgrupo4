@@ -15,3 +15,14 @@
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
+
+/* Fix: en mat-form-field con appearance="outline", el label flotante
+   se solapaba con el texto. Aseguramos que el notch del borde tape
+   correctamente el label cuando flota. */
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  background-color: var(--mat-sys-surface, #fff);
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: transparent;
+}
