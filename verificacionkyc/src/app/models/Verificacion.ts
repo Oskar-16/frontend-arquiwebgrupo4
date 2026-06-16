@@ -2,10 +2,10 @@ export class Verificacion{
     idUser:number=0
     emailUser:string=''
     usernameUser:string=''
-    premiumUser:boolean=true
-    verifiedUser:boolean=true
-    createUser:Date=new Date()
-    updateUser:Date=new Date()
-    enableUser:boolean=true
-    veteranUser:boolean=true
+    is_premiumUser:boolean=false
+    is_verifiedUser:boolean=false
+    created_atUser:string=''
+    updated_atUser:string=''
+    is_enabledUser:boolean=true
+    veteran:boolean=false
 }

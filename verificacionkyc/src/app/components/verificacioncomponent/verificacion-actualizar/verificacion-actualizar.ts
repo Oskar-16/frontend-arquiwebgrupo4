@@ -57,13 +57,12 @@ export class VerificacionActualizar implements OnInit {
   }
   aceptar() {
     if (this.form.valid) {
-      this.ver.idUser=this.form.value.codigo//
-      this.ver.emailUser = this.form.value.correo,
+      this.ver.idUser = this.form.value.id;
+      this.ver.emailUser = this.form.value.correo;
       this.ver.usernameUser = this.form.value.documento;
-      this.ver.createUser = this.form.value.registro;
-      this.ver.verifiedUser = this.form.value.estado;
-      this.ver.enableUser = this.form.value.observacion;
-      this.vS.update(this.ver).subscribe({//
+      this.ver.created_atUser = this.form.value.registro;
+      this.ver.is_verifiedUser = this.form.value.estado === 2;
+      this.vS.update(this.ver).subscribe({
         next: () => {
           this.router.navigate(['/autores/listar']);
         },
@@ -74,12 +73,11 @@ export class VerificacionActualizar implements OnInit {
   init(){
     this.vS.listId(this.id).subscribe(data=>{
       this.form.patchValue({
-        id:data.idUser,//
+        id:data.idUser,
         correo:data.emailUser,
         documento:data.usernameUser,
-        registro:data.createUser,
-        estado:data.verifiedUser,
-        observacion:data.enableUser
+        registro:data.created_atUser,
+        estado:data.is_verifiedUser ? 2 : 1
       })
     })
   }
