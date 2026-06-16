@@ -1,22 +1,66 @@
-.login-container {
+.auth-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 16px;
 }
 
-.login-card {
+/* Marca */
+.marca {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.marca-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--mat-sys-primary);
+}
+
+.marca-icono {
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.marca-tagline {
+  margin: 4px 0 0;
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.95rem;
+}
+
+/* Card */
+.auth-card {
   width: 100%;
-  max-width: 400px;
-  padding: 24px;
+  max-width: 420px;
+  padding: 8px 24px 24px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  box-sizing: border-box;
+}
+
+/* Evita el scroll horizontal dentro del mat-tab-group */
+.auth-card ::ng-deep .mat-mdc-tab-body-content {
+  overflow: hidden;
+  padding: 0 4px;
 }
 
 .campo {
   width: 100%;
 }
 
-.boton-login {
+.boton-principal {
   width: 100%;
   margin-top: 8px;
   display: flex;
@@ -24,19 +68,38 @@
 }
 
 .error-mensaje {
-  color: #d32f2f;
+  color: var(--mat-sys-error);
   font-size: 0.875rem;
   margin: 0 0 8px;
   text-align: center;
 }
 
-.link-registro {
+.exito-mensaje {
+  color: var(--mat-sys-primary);
+  font-size: 0.875rem;
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.link-secundario {
   text-align: center;
   font-size: 0.875rem;
+  margin: 16px 0 0;
+  color: var(--mat-sys-primary);
+  cursor: pointer;
+}
+
+.nota-kyc {
+  max-width: 420px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--mat-sys-on-surface-variant);
   margin-top: 16px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+/* Fix localizado: el label flotante necesita un fondo propio para no
+   solaparse con el texto. Pintamos solo el label, no el notch entero. */
+.auth-card ::ng-deep .mdc-floating-label {
+  background-color: var(--mat-sys-surface, #fff);
+  padding: 0 4px;
 }
