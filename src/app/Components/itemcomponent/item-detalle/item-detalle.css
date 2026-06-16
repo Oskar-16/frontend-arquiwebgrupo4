@@ -1,0 +1,186 @@
+.detalle {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #2f6b3a;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.centro {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.vacio {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.55);
+  padding: 48px 0;
+}
+
+.contenido {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.imagen {
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8ede9;
+  color: #9aa79c;
+  border-radius: 12px;
+}
+
+.imagen mat-icon {
+  font-size: 96px;
+  width: 96px;
+  height: 96px;
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.titulo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.chip-categoria {
+  display: inline-block;
+  background: #eef1ef;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+.descripcion {
+  color: rgba(0, 0, 0, 0.72);
+  line-height: 1.5;
+  margin: 12px 0 20px;
+}
+
+.duenio-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #e4e8e5;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #cfe3d4;
+  color: #2f6b3a;
+  font-weight: 700;
+}
+
+.duenio-nombre {
+  font-weight: 600;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.badge mat-icon {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+}
+
+.badge-veterano {
+  background: #ede4f7;
+  color: #6b3aa0;
+}
+
+.badge-kyc {
+  background: #e2ecf7;
+  color: #2f5b8a;
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.estado-ico {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.estado-disponible {
+  background: #d8f0dc;
+  color: #2f6b3a;
+}
+
+.estado-pausado {
+  background: #fbf0cd;
+  color: #8a6d1a;
+}
+
+.estado-intercambiado {
+  background: #e2e6ef;
+  color: #4a546b;
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nota {
+  font-size: 0.78rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 760px) {
+  .contenido {
+    grid-template-columns: 1fr;
+  }
+}
