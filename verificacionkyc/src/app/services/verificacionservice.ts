@@ -3,33 +3,39 @@ import { environment } from "../../environments/environment.development";
 import { HttpClient } from "@angular/common/http";
 import { Verificacion } from "../models/Verificacion";
 
-const base_url = environment.base;
 @Injectable({
   providedIn: 'root',
 })
 export class Verificacionservice {
-  private url = `${base_url}/api-verificacion`;
+  // Alineado al backend real: el KYC vive en el UserController (/users).
+  // No existe /api-verificacion en el backend.
+  private url = `${environment.base}/users`;
 
   constructor(private http: HttpClient) { }
 
+  // GET /users  -> lista de usuarios (UserResponseDTO[])
   list() {
-    return this.http.get<Verificacion[]>(`${this.url}/lista`);
+    return this.http.get<Verificacion[]>(this.url);
   }
 
+  // POST /users -> crea usuario (el backend espera la entidad User)
   insert(v: Verificacion) {
-    return this.http.post(`${this.url}/nuevo`, v);
+    return this.http.post(this.url, v);
   }
 
+  // DELETE /users/{id}
   eliminar(id: number) {
-    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' })
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 
+  // GET /users/{id}
   listId(id: number) {
-    return this.http.get<Verificacion>(`${this.url}/${id}`)
+    return this.http.get<Verificacion>(`${this.url}/${id}`);
   }
 
-
+  // KYC: PUT /users/{id}/verify -> marca al usuario como verificado.
+  // (No hay PUT /users/{id} genérico; la acción real de KYC es "verify".)
   update(v: Verificacion) {
-    return this.http.put(`${this.url}/actualiza`, v, { responseType: 'text' })
+    return this.http.put(`${this.url}/${v.idUser}/verify`, {}, { responseType: 'text' });
   }
 }
