@@ -1,0 +1,57 @@
+<div class="container">
+    <div style="text-align: center; margin: 3%">
+        <h2>Actualizar Verificaciones</h2>
+    </div>
+    <div style="text-align: center">
+        <form [formGroup]="form" (submit)="aceptar()">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="codigo" readonly="true"/>                
+            </mat-form-field>
+            <br />
+
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Correo</mat-label>
+                <input matInput placeholder="Mario" formControlName="correo" />
+                <mat-error>
+                    @if (form.get('nombre')?.hasError('required')) {
+                    Ingrese nombre de autor!!
+                    }
+                </mat-error>
+            </mat-form-field>
+            <br />
+            <mat-form-field class="example-full-width">
+                <mat-label>Documento</mat-label>
+                <input matInput placeholder="Vargas Llosa" formControlName="documento" />
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Registro</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="registro" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <br />
+            <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    @for (food of estados; track food) {
+                    <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <br />
+
+            <mat-form-field>
+                <mat-label>Observacion</mat-label>
+                <textarea matInput formControlName="observacion"></textarea>
+            </mat-form-field>
+            <div>
+                <button matButton="elevated">Actualizar</button>
+            </div>
+        </form>
+    </div>
+</div>
