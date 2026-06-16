@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { enviroment } from "../../Enviroments/enviroments";
 import { HttpClient } from '@angular/common/http';
 import { Item } from "../Models/item";
+import { ItemResponse } from "../Models/item-response";
 
 @Injectable({
     providedIn: 'root',
@@ -13,6 +14,20 @@ export class Itemservice {
 
     list() {
         return this.http.get<Item[]>(this.url);
+    }
+
+    // Respuesta tipada del backend (incluye user y category) para listar/detalle.
+    listResponse() {
+        return this.http.get<ItemResponse[]>(this.url);
+    }
+
+    listIdResponse(id: number) {
+        return this.http.get<ItemResponse>(`${this.url}/${id}`);
+    }
+
+    // Items de un usuario (para "Mis items" y "Proponer trueque").
+    listByUser(userId: number) {
+        return this.http.get<ItemResponse[]>(`${this.url}/user/${userId}`);
     }
 
     insert(i: Item) {

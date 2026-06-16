@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Homecomponent } from './Components/homecomponent/homecomponent';
 import { Logincomponent } from './Components/logincomponent/logincomponent';
 import { Layoutcomponent } from './Components/layoutcomponent/layoutcomponent';
 import { authGuard } from './Guards/auth.guard';
@@ -8,6 +7,8 @@ import { ItemListar } from './Components/itemcomponent/item-listar/item-listar';
 import { ItemInsertar } from './Components/itemcomponent/item-insertar/item-insertar';
 import { ItemActualizar } from './Components/itemcomponent/item-actualizar/item-actualizar';
 import { ItemBuscar } from './Components/itemcomponent/item-buscar/item-buscar';
+import { Explorarcomponent } from './Components/explorarcomponent/explorarcomponent';
+import { ItemDetalle } from './Components/itemcomponent/item-detalle/item-detalle';
 
 export const routes: Routes = [
     {
@@ -31,8 +32,22 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {
+                path: '',
+                redirectTo: 'explorar',
+                pathMatch: 'full'
+            },
+            {
+                path: 'explorar',
+                component: Explorarcomponent
+            },
+            {
+                path: 'explorar/:id',
+                component: ItemDetalle
+            },
+            {
                 path: 'homes',
-                component: Homecomponent
+                redirectTo: 'explorar',
+                pathMatch: 'full'
             },
             {
                 path: 'items',

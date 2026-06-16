@@ -1,0 +1,55 @@
+<div class="detalle">
+  <a class="volver" routerLink="/explorar">
+    <mat-icon>arrow_back</mat-icon> Volver a explorar
+  </a>
+
+  @if (cargando()) {
+    <div class="centro"><mat-spinner diameter="44"></mat-spinner></div>
+  } @else if (!item()) {
+    <p class="vacio">No se encontró el item.</p>
+  } @else {
+    @let it = item()!;
+    <div class="contenido">
+      <div class="imagen">
+        <mat-icon>{{ iconoCategoria(it.category?.nameCategory) }}</mat-icon>
+      </div>
+
+      <div class="info">
+        <div class="encabezado">
+          <h1 class="titulo">{{ it.titleItem }}</h1>
+          <span class="estado" [class]="estadoClase(it.statusItem)">
+            <mat-icon class="estado-ico">check_circle</mat-icon>{{ estadoTexto(it.statusItem) }}
+          </span>
+        </div>
+
+        @if (it.category?.nameCategory) {
+          <span class="chip-categoria">{{ it.category?.nameCategory }}</span>
+        }
+
+        <p class="descripcion">{{ it.descriptionItem }}</p>
+
+        <div class="duenio-card">
+          <span class="avatar">{{ iniciales(it) }}</span>
+          <div class="duenio-datos">
+            <span class="duenio-nombre">{{ nombreDueno(it) }}</span>
+            <div class="badges">
+              @if (it.user?.veteran) {
+                <span class="badge badge-veterano"><mat-icon>military_tech</mat-icon> Veterano</span>
+              }
+              @if (it.user?.is_verifiedUser) {
+                <span class="badge badge-kyc"><mat-icon>verified</mat-icon> KYC verificado</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button matButton="filled" disabled title="Disponible cuando esté listo el módulo de Trueques">
+            <mat-icon>swap_horiz</mat-icon> Proponer trueque
+          </button>
+          <span class="nota">El módulo de Trueques está en construcción (Paso 2).</span>
+        </div>
+      </div>
+    </div>
+  }
+</div>
