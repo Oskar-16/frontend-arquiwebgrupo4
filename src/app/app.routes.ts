@@ -8,6 +8,7 @@ import { ItemListar } from './Components/itemcomponent/item-listar/item-listar';
 import { ItemInsertar } from './Components/itemcomponent/item-insertar/item-insertar';
 import { ItemActualizar } from './Components/itemcomponent/item-actualizar/item-actualizar';
 import { ItemBuscar } from './Components/itemcomponent/item-buscar/item-buscar';
+import { Truequecomponent } from './Components/truequecomponent/truequecomponent';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
             {
                 path: 'homes',
                 component: Homecomponent
+            },
+            {
+                path: 'trueques',
+                component: Truequecomponent
             },
             {
                 path: 'items',

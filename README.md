@@ -1,64 +1,81 @@
-<<<<<<< HEAD
-# TuTradeFrontend
+# TuTrade — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.14.
+Frontend del proyecto **TuTrade**, plataforma de trueque de items entre usuarios, desarrollado en Angular para el curso de Arquitectura Web (Grupo 4). Consume la API REST del backend [Arqui-Web-Grupo-4](https://github.com/Francesko217/Arqui-Web-Grupo-4).
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- Angular 21 (standalone components)
+- Angular Material
+- Angular SSR (`@angular/ssr`)
+- RxJS
 
-```bash
-ng serve
-```
+## Requisitos previos
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Node.js y npm
+- Backend de TuTrade corriendo (ver repositorio del backend) con su base de datos PostgreSQL disponible
 
-## Code scaffolding
+## Configuración del entorno
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+La URL del backend se define en `src/Enviroments/`:
 
-```bash
-ng generate component component-name
-```
+- `enviroments.ts` — entorno de producción, apunta a la API desplegada.
+- `enviroments.developments.ts` — entorno de desarrollo local. Ajustar `base` al puerto donde corra el backend local (por defecto `http://localhost:8090`, evitando el `8080` si ya está ocupado por otro servicio).
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Servidor de desarrollo
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+La aplicación queda disponible en `http://localhost:4200/` y se recarga automáticamente al modificar el código fuente.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Build de producción
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+Los artefactos de build se generan en `dist/`.
 
-For end-to-end (e2e) testing, run:
+## Pruebas
 
 ```bash
-ng e2e
+npm test
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Estructura principal
 
-## Additional Resources
+```
+src/app/
+├── Components/        # Componentes de pantalla (homecomponent, itemcomponent, truequecomponent, etc.)
+├── Services/          # Servicios HTTP (Itemservice, Categoryservice, Tradeservice, AuthService)
+├── Models/             # Modelos/DTOs del lado del cliente
+├── Guards/             # Guards de rutas (autenticación)
+└── Interceptors/       # Interceptores HTTP (adjuntan el JWT)
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# frontend-arquiwebgrupo4
-aca desarrollamos el frontend del tf
->>>>>>> e63b13e33ab82a20e2f100b0d545eb897ffe4000
+## Pantallas principales
+
+| Pantalla | Ruta | Descripción |
+|---|---|---|
+| Explorar | `/homes` | Catálogo de items disponibles, con búsqueda y filtro por categoría |
+| Mis items | `/items/listaritem` | Gestión de items propios: publicar, editar, eliminar |
+| Publicar item | `/items/insertaritem` | Formulario de alta de un nuevo item |
+| Buscar item | `/items/buscaritem` | Búsqueda de items por título y categoría |
+| Trueques | `/trueques` | Propuestas de trueque recibidas y enviadas, con aceptar/rechazar/cancelar |
+
+---
+
+## Avance personal — Miguel
+
+Trabajo realizado en la rama `avance-miguel`:
+
+- **Mis items**: rediseño completo de la tabla (íconos por categoría, chips de estado, badge de plan gratuito con contador de items activos), filtrando por el usuario autenticado vía el token JWT.
+- **Explorar**: implementación del catálogo (antes vacío), con buscador, chips de filtro por categoría real del backend y grid de cards.
+- **Publicar item**: formulario rediseñado con categorías reales desde `/categories`, condición con etiquetas legibles, y corrección de un bug que rompía la navegación tras publicar.
+- **Buscar item**: pantalla implementada desde cero (antes era un placeholder vacío); búsqueda por título con filtro de categoría.
+- **Trueques**: pantalla nueva conectada a los endpoints reales del backend (`/trades/received`, `/trades/sent`, `accept`, `reject`, `cancel`), con tabs de Recibidos/Enviados.
+- **Navbar**: corrección de alineación, centrado al mismo ancho máximo que el contenido de las páginas.
+- **Corrección de bug de estados**: los códigos de `statusItem` estaban mal mapeados (se usaba 0/1/2); el valor real del backend es 1=Disponible, 2=Pausado, 3=Intercambiado.
+- **CORS / entorno local**: ajuste del entorno de desarrollo para apuntar al puerto donde corre el backend local sin chocar con otros servicios en uso.

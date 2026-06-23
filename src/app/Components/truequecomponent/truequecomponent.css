@@ -1,0 +1,124 @@
+.trueques-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.trueques-container h1 {
+  margin: 0 0 16px;
+  font-size: 28px;
+}
+
+.lista-trueques {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.card-trueque {
+  border: 1px solid #e3e8e3;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.cabecera-trueque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.usuario-trueque {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-mini {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #d3e3d3;
+  color: #2e5c2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.nombre-trueque {
+  font-weight: 600;
+}
+
+.tiempo-trueque {
+  font-size: 12px;
+  color: #6b7a6b;
+}
+
+.chip-estado {
+  padding: 3px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+.estado-pendiente {
+  background: #fff3cd;
+  color: #946200;
+}
+
+.estado-aceptado {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.estado-rechazado {
+  background: #fbe4e2;
+  color: #c0392b;
+}
+
+.cuerpo-trueque {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px 0;
+}
+
+.item-trueque {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 100px;
+}
+
+.etiqueta {
+  font-size: 12px;
+  color: #6b7a6b;
+}
+
+.valor {
+  font-weight: 600;
+}
+
+.icono-swap {
+  color: #2e7d32;
+}
+
+.acciones-trueque {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  border-top: 1px solid #eef1ee;
+  padding-top: 12px;
+}
+
+.btn-rechazar {
+  color: #c0392b;
+}
+
+.vacio {
+  text-align: center;
+  color: #6b7a6b;
+  padding: 24px;
+}

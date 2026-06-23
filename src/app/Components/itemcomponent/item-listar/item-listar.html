@@ -1,65 +1,52 @@
-<div class="container">
-  <h2 style="text-align: center">Lista de Items</h2>
-  <div>
-    <!--tabla-->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+<div class="mis-items-container">
+  <div class="encabezado">
+    <h1>Mis items</h1>
+    <button matButton="elevated" class="btn-publicar" routerLink="/items/insertaritem">
+      <mat-icon>add</mat-icon>
+      Publicar item
+    </button>
+  </div>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="c1">
-        <th mat-header-cell *matHeaderCellDef>ID.</th>
-        <td mat-cell *matCellDef="let element">{{ element.idItem }}</td>
-      </ng-container>
+  <span class="badge-plan">{{ itemsActivos }} / {{ limitePlan }} items activos — plan gratuito</span>
 
-      <!-- title Column -->
-      <ng-container matColumnDef="c2">
-        <th mat-header-cell *matHeaderCellDef>titulo</th>
-        <td mat-cell *matCellDef="let element">{{ element.titleItem }}</td>
-      </ng-container>
-
-      <!-- description Column -->
-      <ng-container matColumnDef="c3">
-        <th mat-header-cell *matHeaderCellDef>descripcion</th>
-        <td mat-cell *matCellDef="let element">{{ element.descriptionItem }}</td>
-      </ng-container>
-
-      <!-- condition Column -->
-      <ng-container matColumnDef="c4">
-        <th mat-header-cell *matHeaderCellDef>condicion</th>
-        <td mat-cell *matCellDef="let element">{{ element.conditionItem }}</td>
-      </ng-container>
-      <!-- Status Column -->
-      <ng-container matColumnDef="c5">
-        <th mat-header-cell *matHeaderCellDef>status</th>
-        <td mat-cell *matCellDef="let element">{{ element.statusItem }}</td>
-      </ng-container>
-      <!-- User Column -->
-      <ng-container matColumnDef="c6">
-        <th mat-header-cell *matHeaderCellDef>usuario</th>
-        <td mat-cell *matCellDef="let element">{{ element.User }}</td>
-      </ng-container>
-      <!-- categoria Column -->
-      <ng-container matColumnDef="c7">
-        <th mat-header-cell *matHeaderCellDef>categoria</th>
-        <td mat-cell *matCellDef="let element">{{ element.Category }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c8">
-        <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+  <div class="tabla-card mat-elevation-z1">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef>Item</th>
         <td mat-cell *matCellDef="let element">
-          <button matButton (click)="eliminar(element.idItem)" class="btn-eliminar">
-            <mat-icon>delete</mat-icon>
-        </button>
+          <div class="celda-item">
+            <div class="icono-item">
+              <mat-icon>{{ iconoCategoria(element) }}</mat-icon>
+            </div>
+            <span>{{ element.titleItem }}</span>
+          </div>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="c9">
-        <th mat-header-cell *matHeaderCellDef>Actualizar</th>
+      <ng-container matColumnDef="categoria">
+        <th mat-header-cell *matHeaderCellDef>Categoría</th>
+        <td mat-cell *matCellDef="let element">{{ element.category?.nameCategory }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let element">
-          <button matButton [routerLink]="['/items/edits',element.idItem]" class="btn-eliminar">
+          <span class="chip-estado" [ngClass]="estadoDe(element).clase">
+            <mat-icon>{{ estadoDe(element).icono }}</mat-icon>
+            {{ estadoDe(element).texto }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button matIconButton routerLink="/items/actualizaritem" aria-label="Editar">
             <mat-icon>edit</mat-icon>
-        </button>
+          </button>
+          <button matIconButton (click)="eliminar(element.idItem)" class="btn-eliminar" aria-label="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -67,5 +54,8 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-</div>
 
+  <button matFab class="fab-publicar" routerLink="/items/insertaritem" aria-label="Publicar item">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

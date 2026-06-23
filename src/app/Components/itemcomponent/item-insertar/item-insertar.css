@@ -1,0 +1,44 @@
+.form-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.form-card h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.subtitulo {
+  color: #6b7a6b;
+  margin: 4px 0 24px;
+}
+
+.campo-full {
+  width: 100%;
+}
+
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.error-publicar {
+  color: #c0392b;
+  font-size: 13px;
+  margin: 4px 0 0;
+}
+
+.acciones-form {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
