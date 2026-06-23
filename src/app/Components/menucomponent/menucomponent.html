@@ -1,44 +1,46 @@
 <mat-toolbar color="primary" class="navbar">
-  <!-- Marca -->
-  <a class="marca" routerLink="/homes">
-    <mat-icon>swap_horiz</mat-icon>
-    <span class="marca-texto">TuTrade</span>
-  </a>
+  <div class="navbar-contenido">
+    <!-- Marca -->
+    <a class="marca" routerLink="/homes">
+      <mat-icon>swap_horiz</mat-icon>
+      <span class="marca-texto">TuTrade</span>
+    </a>
 
-  <!-- Buscador -->
-  <div class="buscador">
-    <mat-icon class="buscador-icono">search</mat-icon>
-    <input type="text" placeholder="Buscar items..." class="buscador-input" />
-  </div>
+    <!-- Buscador -->
+    <div class="buscador">
+      <mat-icon class="buscador-icono">search</mat-icon>
+      <input type="text" placeholder="Buscar items..." class="buscador-input" />
+    </div>
 
-  <!-- Navegación -->
-  <nav class="nav-links">
-    <a matButton routerLink="/homes" routerLinkActive="activo">Explorar</a>
+    <!-- Navegación -->
+    <nav class="nav-links">
+      <a matButton routerLink="/homes" routerLinkActive="activo">Explorar</a>
 
-    <button matButton [matMenuTriggerFor]="menuItems">Mis items</button>
-    <mat-menu #menuItems="matMenu">
-      <a mat-menu-item routerLink="/items/listaritem">Listar items</a>
-      <a mat-menu-item routerLink="/items/insertaritem">Registrar item</a>
-      <a mat-menu-item routerLink="/items/buscaritem">Buscar item</a>
-    </mat-menu>
+      <button matButton [matMenuTriggerFor]="menuItems">Mis items</button>
+      <mat-menu #menuItems="matMenu">
+        <a mat-menu-item routerLink="/items/listaritem">Listar items</a>
+        <a mat-menu-item routerLink="/items/insertaritem">Registrar item</a>
+        <a mat-menu-item routerLink="/items/buscaritem">Buscar item</a>
+      </mat-menu>
 
-    <a matButton>Trueques</a>
-  </nav>
+      <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
+    </nav>
 
-  <!-- Acciones -->
-  <div class="acciones">
-    <button mat-icon-button aria-label="Notificaciones">
-      <mat-icon>notifications</mat-icon>
-    </button>
-
-    <button mat-icon-button [matMenuTriggerFor]="menuUsuario" aria-label="Cuenta" class="avatar">
-      <span class="avatar-iniciales">U</span>
-    </button>
-    <mat-menu #menuUsuario="matMenu">
-      <button mat-menu-item (click)="cerrarSesion()">
-        <mat-icon>logout</mat-icon>
-        <span>Cerrar sesión</span>
+    <!-- Acciones -->
+    <div class="acciones">
+      <button mat-icon-button aria-label="Notificaciones">
+        <mat-icon>notifications</mat-icon>
       </button>
-    </mat-menu>
+
+      <button mat-icon-button [matMenuTriggerFor]="menuUsuario" aria-label="Cuenta" class="avatar">
+        <span class="avatar-iniciales">U</span>
+      </button>
+      <mat-menu #menuUsuario="matMenu">
+        <button mat-menu-item (click)="cerrarSesion()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
 </mat-toolbar>

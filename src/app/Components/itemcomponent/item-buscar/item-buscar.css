@@ -1,0 +1,143 @@
+.buscar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.buscar-container h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.subtitulo {
+  color: #5f6b5f;
+  margin: 4px 0 20px;
+}
+
+.filtros-buscar {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.buscador-explorar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #d8dfd8;
+  border-radius: 8px;
+  padding: 8px 14px;
+  max-width: 420px;
+  flex: 1;
+  min-width: 240px;
+}
+
+.buscador-explorar input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+}
+
+.select-categoria {
+  min-width: 200px;
+}
+
+.grid-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card-item {
+  padding: 0;
+  overflow: hidden;
+}
+
+.imagen-item {
+  height: 140px;
+  background: #e3ece3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b6b4b;
+}
+
+.imagen-item mat-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+}
+
+.titulo-item {
+  font-weight: 600;
+}
+
+.categoria-item {
+  color: #6b7a6b;
+  font-size: 13px;
+}
+
+.pie-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.usuario-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.avatar-mini {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #d3e3d3;
+  color: #2e5c2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.chip-estado {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.estado-disponible {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.estado-pausado {
+  background: #fff3cd;
+  color: #946200;
+}
+
+.estado-intercambiado {
+  background: #e3eaf7;
+  color: #3454a3;
+}
+
+.vacio {
+  text-align: center;
+  color: #6b7a6b;
+  padding: 24px;
+}

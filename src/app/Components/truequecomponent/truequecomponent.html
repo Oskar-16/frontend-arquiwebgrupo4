@@ -1,0 +1,94 @@
+<div class="trueques-container">
+  <h1>Mis trueques</h1>
+
+  <mat-tab-group>
+    <mat-tab label="Recibidos">
+      <div class="lista-trueques">
+        <div class="card-trueque" *ngFor="let t of recibidos">
+          <div class="cabecera-trueque">
+            <div class="usuario-trueque">
+              <span class="avatar-mini">{{ inicialesDe(t.proposer?.usernameUser) }}</span>
+              <div>
+                <div class="nombre-trueque">{{ t.proposer?.usernameUser }}</div>
+                <div class="tiempo-trueque">{{ t.created_atTrade }}</div>
+              </div>
+            </div>
+            <span class="chip-estado" [ngClass]="estadoClase(t)">{{ estadoTexto(t) }}</span>
+          </div>
+
+          <div class="cuerpo-trueque">
+            <div class="item-trueque">
+              <span class="etiqueta">Te ofrece</span>
+              <span class="valor">{{ textoItems(t.proposerItems) }}</span>
+            </div>
+            <mat-icon class="icono-swap">swap_horiz</mat-icon>
+            <div class="item-trueque">
+              <span class="etiqueta">Por tu</span>
+              <span class="valor">{{ textoItems(t.receiverItems) }}</span>
+            </div>
+          </div>
+
+          <div class="acciones-trueque" *ngIf="t.statusTrade === 'PENDING'">
+            <button matButton="outlined" class="btn-rechazar" (click)="rechazar(t)">
+              <mat-icon>close</mat-icon> Rechazar
+            </button>
+            <button matButton="elevated" (click)="aceptar(t)">
+              <mat-icon>check</mat-icon> Aceptar
+            </button>
+          </div>
+
+          <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
+            <button matButton="outlined" [disabled]="!t.chatId">
+              <mat-icon>chat</mat-icon> Abrir chat
+            </button>
+          </div>
+        </div>
+
+        <p class="vacio" *ngIf="!recibidos.length">No tienes trueques recibidos.</p>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Enviados">
+      <div class="lista-trueques">
+        <div class="card-trueque" *ngFor="let t of enviados">
+          <div class="cabecera-trueque">
+            <div class="usuario-trueque">
+              <span class="avatar-mini">{{ inicialesDe(t.receiver?.usernameUser) }}</span>
+              <div>
+                <div class="nombre-trueque">{{ t.receiver?.usernameUser }}</div>
+                <div class="tiempo-trueque">{{ t.created_atTrade }}</div>
+              </div>
+            </div>
+            <span class="chip-estado" [ngClass]="estadoClase(t)">{{ estadoTexto(t) }}</span>
+          </div>
+
+          <div class="cuerpo-trueque">
+            <div class="item-trueque">
+              <span class="etiqueta">Ofreces</span>
+              <span class="valor">{{ textoItems(t.proposerItems) }}</span>
+            </div>
+            <mat-icon class="icono-swap">swap_horiz</mat-icon>
+            <div class="item-trueque">
+              <span class="etiqueta">Por su</span>
+              <span class="valor">{{ textoItems(t.receiverItems) }}</span>
+            </div>
+          </div>
+
+          <div class="acciones-trueque" *ngIf="t.statusTrade === 'PENDING'">
+            <button matButton="outlined" class="btn-rechazar" (click)="cancelar(t)">
+              <mat-icon>close</mat-icon> Cancelar
+            </button>
+          </div>
+
+          <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
+            <button matButton="outlined" [disabled]="!t.chatId">
+              <mat-icon>chat</mat-icon> Abrir chat
+            </button>
+          </div>
+        </div>
+
+        <p class="vacio" *ngIf="!enviados.length">No tienes trueques enviados.</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
