@@ -1,0 +1,290 @@
+<!-- ════════════════ NAVBAR ════════════════ -->
+<header class="nav">
+  <a class="brand" href="#top" aria-label="Tu Trade — inicio">
+    <span class="brand__mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <path
+          d="M9 11h11a5 5 0 0 1 0 10h-2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+        />
+        <path d="M11 8 8 11l3 3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        <path
+          d="M23 21H12a5 5 0 0 1 0-10h2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          opacity="0.55"
+        />
+        <path d="M21 24l3-3-3-3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+      </svg>
+    </span>
+    <span class="brand__name">Tu<span>Trade</span></span>
+  </a>
+
+  <nav class="nav__links" aria-label="Secciones">
+    <a href="#como">Cómo funciona</a>
+    <a href="#impacto">Impacto</a>
+    <a href="#equipo">Equipo</a>
+  </nav>
+
+  <a class="btn btn--ghost" routerLink="/login">Iniciar sesión</a>
+</header>
+
+<main id="top">
+  <!-- ════════════════ HERO ════════════════ -->
+  <section class="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <span class="blob blob--1"></span>
+      <span class="blob blob--2"></span>
+      <span class="grain"></span>
+    </div>
+
+    <div class="hero__copy reveal">
+      <span class="eyebrow"><i class="material-symbols-outlined">eco</i> Economía circular</span>
+      <h1>
+        Dale una <em>segunda vida</em><br />
+        a lo que ya no usas.
+      </h1>
+      <p class="lead">
+        Tu Trade es la plataforma de trueque donde intercambias objetos de igual
+        valor — <strong>sin dinero de por medio</strong>. Menos desperdicio, más
+        impacto para el planeta.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--solid btn--lg" routerLink="/login">
+          Empezar gratis <i class="material-symbols-outlined">arrow_forward</i>
+        </a>
+        <a class="btn btn--text" href="#como">Ver cómo funciona</a>
+      </div>
+      <p class="hero__note"><i class="material-symbols-outlined">recycling</i> Únete a una comunidad que ya intercambió más de {{ fmt(metaIntercambios) }} artículos.</p>
+    </div>
+
+    <!-- Loop de trueque (motivo circular) -->
+    <div class="loop reveal" aria-hidden="true">
+      <span class="loop__ring"></span>
+      <span class="loop__ring loop__ring--2"></span>
+      <div class="loop__card loop__card--a">
+        <i class="material-symbols-outlined">photo_camera</i>
+        <span>Cámara</span>
+      </div>
+      <div class="loop__card loop__card--b">
+        <i class="material-symbols-outlined">headphones</i>
+        <span>Audífonos</span>
+      </div>
+      <div class="loop__core">
+        <i class="material-symbols-outlined">swap_horiz</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ PROBLEMA / POR QUÉ ════════════════ -->
+  <section class="porque">
+    <div class="porque__grid">
+      <div class="porque__lead reveal">
+        <span class="tag">El problema</span>
+        <h2>Comprar, usar, botar.<br />El ciclo que agota al planeta.</h2>
+      </div>
+      <p class="porque__text reveal">
+        Acumulamos objetos en buen estado que dejamos de usar mientras seguimos
+        comprando cosas nuevas. Ese consumo lineal multiplica los residuos y la
+        huella ambiental. <strong>Tu Trade le da la vuelta:</strong> convierte lo
+        que ya no necesitas en lo que sí — cerrando el círculo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════ CÓMO FUNCIONA ════════════════ -->
+  <section class="como" id="como">
+    <div class="section-head reveal">
+      <span class="tag">Cómo funciona</span>
+      <h2>Cuatro pasos para tu primer trueque</h2>
+    </div>
+    <ol class="pasos">
+      @for (paso of pasos; track paso.titulo; let i = $index) {
+        <li class="paso reveal" [style.--d.ms]="i * 90">
+          <span class="paso__num">{{ i + 1 }}</span>
+          <span class="paso__icon"><i class="material-symbols-outlined">{{ paso.icono }}</i></span>
+          <h3>{{ paso.titulo }}</h3>
+          <p>{{ paso.texto }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <!-- ════════════════ IMPACTO AMBIENTAL (Climatiq, ilustrativo) ════════════════ -->
+  <section class="impacto" id="impacto">
+    <div class="impacto__bg" aria-hidden="true"><span class="grain"></span></div>
+
+    <div class="section-head section-head--light reveal">
+      <span class="tag tag--light"><i class="material-symbols-outlined">monitoring</i> Impacto en tiempo real</span>
+      <h2>Cada intercambio deja huella.<br />De la buena.</h2>
+      <p class="section-sub">
+        Calculamos cuánto CO₂, agua y residuos evitas al elegir un objeto usado en
+        lugar de comprar uno nuevo. Esto es lo que nuestra comunidad ya ahorró:
+      </p>
+    </div>
+
+    <!-- Contadores de comunidad -->
+    <div class="contadores">
+      <div class="contador reveal">
+        <i class="material-symbols-outlined">cloud</i>
+        <span class="contador__num">{{ fmt(co2()) }}</span>
+        <span class="contador__unit">kg de CO₂ evitados</span>
+      </div>
+      <div class="contador reveal">
+        <i class="material-symbols-outlined">water_drop</i>
+        <span class="contador__num">{{ fmt(agua()) }}</span>
+        <span class="contador__unit">litros de agua ahorrados</span>
+      </div>
+      <div class="contador reveal">
+        <i class="material-symbols-outlined">delete</i>
+        <span class="contador__num">{{ fmt(residuos()) }}</span>
+        <span class="contador__unit">kg de residuos evitados</span>
+      </div>
+      <div class="contador reveal">
+        <i class="material-symbols-outlined">swap_horiz</i>
+        <span class="contador__num">{{ fmt(intercambios()) }}</span>
+        <span class="contador__unit">intercambios realizados</span>
+      </div>
+    </div>
+
+    <!-- Mini-calculadora -->
+    <div class="calc reveal">
+      <div class="calc__head">
+        <h3>¿Cuánto ahorrarías tú?</h3>
+        <p>Elige una categoría y descubre el impacto de un solo intercambio.</p>
+      </div>
+
+      <div class="calc__cats" role="tablist" aria-label="Categorías">
+        @for (cat of categorias; track cat.id) {
+          <button
+            type="button"
+            role="tab"
+            class="chip"
+            [class.chip--active]="categoriaSel() === cat.id"
+            [attr.aria-selected]="categoriaSel() === cat.id"
+            (click)="seleccionar(cat.id)"
+          >
+            <i class="material-symbols-outlined">{{ cat.icono }}</i>{{ cat.nombre }}
+          </button>
+        }
+      </div>
+
+      <div class="calc__out">
+        <div class="metric">
+          <span class="metric__val">{{ fmt(impactoSel().co2) }} <small>kg</small></span>
+          <span class="metric__label"><i class="material-symbols-outlined">cloud</i> CO₂ evitado</span>
+        </div>
+        <div class="metric">
+          <span class="metric__val">{{ fmt(impactoSel().agua) }} <small>L</small></span>
+          <span class="metric__label"><i class="material-symbols-outlined">water_drop</i> Agua ahorrada</span>
+        </div>
+        <div class="metric">
+          <span class="metric__val">{{ fmt(impactoSel().residuos) }} <small>kg</small></span>
+          <span class="metric__label"><i class="material-symbols-outlined">delete</i> Residuos evitados</span>
+        </div>
+      </div>
+
+      <p class="calc__disclaimer">
+        <i class="material-symbols-outlined">info</i>
+        Valores estimados con fines ilustrativos. El cálculo real por intercambio
+        se hace en el producto con datos de Climatiq.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════ FEATURES ════════════════ -->
+  <section class="features">
+    <div class="section-head reveal">
+      <span class="tag">Por qué Tu Trade</span>
+      <h2>Pensado para que intercambies tranquilo</h2>
+    </div>
+    <div class="features__grid">
+      @for (f of features; track f.titulo; let i = $index) {
+        <article class="feature reveal" [style.--d.ms]="i * 80">
+          <span class="feature__icon"><i class="material-symbols-outlined">{{ f.icono }}</i></span>
+          <h3>{{ f.titulo }}</h3>
+          <p>{{ f.texto }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ════════════════ ABOUT THE PRODUCT ════════════════ -->
+  <section class="video">
+    <div class="video__copy reveal">
+      <span class="tag">About the Product</span>
+      <h2>Conoce Tu Trade en un minuto</h2>
+      <p>
+        Te contamos la problemática que resolvemos y cómo funciona la plataforma
+        de principio a fin.
+      </p>
+      <a class="btn btn--solid" routerLink="/login">Crear mi cuenta</a>
+    </div>
+    <!-- Placeholder de video — reemplazar por <iframe> del video real -->
+    <div class="video__frame reveal" role="img" aria-label="Video About the Product (próximamente)">
+      <i class="material-symbols-outlined">play_circle</i>
+      <span>Video About the Product</span>
+      <small>próximamente</small>
+    </div>
+  </section>
+
+  <!-- ════════════════ ABOUT THE TEAM ════════════════ -->
+  <section class="equipo" id="equipo">
+    <div class="section-head reveal">
+      <span class="tag">About the Team</span>
+      <h2>Grupo 4 — los que hacen el trueque posible</h2>
+      <p class="section-sub">Estudiantes de Ingeniería de Sistemas de Información · UPC</p>
+    </div>
+
+    <!-- Placeholder de video — reemplazar por <iframe> del video real -->
+    <div class="video__frame video__frame--team reveal" role="img" aria-label="Video About the Team (próximamente)">
+      <i class="material-symbols-outlined">play_circle</i>
+      <span>Video About the Team</span>
+      <small>próximamente</small>
+    </div>
+
+    <div class="equipo__grid">
+      @for (m of equipo; track m.nombre; let i = $index) {
+        <article class="miembro reveal" [style.--d.ms]="i * 70">
+          <span class="avatar">{{ m.iniciales }}</span>
+          <h3>{{ m.nombre }}</h3>
+          <span class="miembro__rol">{{ m.rol }}</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- ════════════════ CTA FINAL ════════════════ -->
+  <section class="cta">
+    <div class="cta__inner reveal">
+      <span class="blob blob--cta" aria-hidden="true"></span>
+      <h2>Lo que para ti ya no sirve,<br />para alguien más es justo lo que busca.</h2>
+      <p>Únete a Tu Trade y empieza a intercambiar hoy.</p>
+      <a class="btn btn--solid btn--lg" routerLink="/login">
+        Únete a Tu Trade <i class="material-symbols-outlined">arrow_forward</i>
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="footer__brand">
+    <span class="brand__name">Tu<span>Trade</span></span>
+    <p>Trueque sostenible · Economía circular</p>
+  </div>
+  <nav class="footer__links" aria-label="Pie de página">
+    <a href="#como">Cómo funciona</a>
+    <a href="#impacto">Impacto</a>
+    <a href="#equipo">Equipo</a>
+    <a routerLink="/login">Iniciar sesión</a>
+  </nav>
+  <p class="footer__legal">
+    © {{ anio }} Tu Trade · Grupo 4 — Arquitectura de Aplicaciones Web, UPC
+  </p>
+</footer>

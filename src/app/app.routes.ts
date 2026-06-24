@@ -9,11 +9,13 @@ import { ItemActualizar } from './Components/itemcomponent/item-actualizar/item-
 import { ItemBuscar } from './Components/itemcomponent/item-buscar/item-buscar';
 import { Explorarcomponent } from './Components/explorarcomponent/explorarcomponent';
 import { ItemDetalle } from './Components/itemcomponent/item-detalle/item-detalle';
+import { Landingcomponent } from './Components/landingcomponent/landingcomponent';
 
 export const routes: Routes = [
     {
+        // Landing page pública (raíz). El login queda detrás del CTA.
         path: '',
-        redirectTo: 'login',
+        component: Landingcomponent,
         pathMatch: 'full'
     },
     {
