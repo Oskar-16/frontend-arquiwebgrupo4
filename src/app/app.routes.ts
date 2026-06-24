@@ -10,6 +10,11 @@ import { ItemBuscar } from './Components/itemcomponent/item-buscar/item-buscar';
 import { Explorarcomponent } from './Components/explorarcomponent/explorarcomponent';
 import { ItemDetalle } from './Components/itemcomponent/item-detalle/item-detalle';
 import { Landingcomponent } from './Components/landingcomponent/landingcomponent';
+import { Truequecomponent } from './Components/truequecomponent/truequecomponent';
+import { Verificacioncomponent } from './Components/verificacioncomponent/verificacioncomponent';
+import { VerificacionListar } from './Components/verificacioncomponent/verificacion-listar/verificacion-listar';
+import { VerificacionInsertar } from './Components/verificacioncomponent/verificacion-insertar/verificacion-insertar';
+import { VerificacionActualizar } from './Components/verificacioncomponent/verificacion-actualizar/verificacion-actualizar';
 
 export const routes: Routes = [
     {
@@ -70,6 +75,29 @@ export const routes: Routes = [
                     {
                         path: 'buscaritem',
                         component: ItemBuscar
+                    }
+                ]
+            },
+            {
+                path: 'trueques',
+                component: Truequecomponent
+            },
+            {
+                // Verificación KYC (consolidado desde el proyecto verificacionkyc/)
+                path: 'kyc',
+                component: Verificacioncomponent,
+                children: [
+                    {
+                        path: 'listar',
+                        component: VerificacionListar
+                    },
+                    {
+                        path: 'nuevo',
+                        component: VerificacionInsertar
+                    },
+                    {
+                        path: 'edits/:id',
+                        component: VerificacionActualizar
                     }
                 ]
             }
