@@ -57,6 +57,10 @@ export const routes: Routes = [
                 pathMatch: 'full'
             },
             {
+                path: 'trueques',
+                component: Truequecomponent
+            },
+            {
                 path: 'items',
                 component: Itemcomponent,
                 children: [
