@@ -1,4 +1,50 @@
-<div class="container">
-    <p>aqui va el logo y la pagina de inicio</p>
-</div>
+<div class="explorar-container">
+  <h1>Explorar items</h1>
+  <p class="subtitulo">Filtra por categoría y propón un trueque por lo que te interese.</p>
 
+  <div class="buscador-explorar">
+    <mat-icon>search</mat-icon>
+    <input
+      type="text"
+      placeholder="Buscar items..."
+      [(ngModel)]="busqueda"
+    />
+  </div>
+
+  <mat-chip-set class="filtros" aria-label="Filtro de categorías">
+    <mat-chip-option
+      [selected]="categoriaSeleccionada === 'todos'"
+      (click)="seleccionarCategoria('todos')"
+    >
+      Todos
+    </mat-chip-option>
+    <mat-chip-option
+      *ngFor="let categoria of categorias"
+      [selected]="categoriaSeleccionada === categoria.idCategory"
+      (click)="seleccionarCategoria(categoria.idCategory)"
+    >
+      {{ categoria.nameCategory }}
+    </mat-chip-option>
+  </mat-chip-set>
+
+  <div class="grid-items">
+    <mat-card *ngFor="let item of itemsFiltrados" class="card-item">
+      <div class="imagen-item">
+        <mat-icon>{{ iconoCategoria(item) }}</mat-icon>
+      </div>
+      <div class="info-item">
+        <span class="titulo-item">{{ item.titleItem }}</span>
+        <span class="categoria-item">{{ item.category?.nameCategory }}</span>
+        <div class="pie-item">
+          <span class="usuario-item">
+            <span class="avatar-mini">{{ inicialesDe(item) }}</span>
+            {{ item.user?.usernameUser }}
+          </span>
+          <span class="chip-estado" [ngClass]="estadoDe(item).clase">
+            {{ estadoDe(item).texto }}
+          </span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

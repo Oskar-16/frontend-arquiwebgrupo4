@@ -1,54 +1,71 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-import {MatSelectModule} from '@angular/material/select';
-import {MatButtonModule} from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Item } from '../../../Models/item';
+import { Category } from '../../../Models/category';
 import { Itemservice } from '../../../Services/itemservice';
+import { Categoryservice } from '../../../Services/categoryservice';
+
+const CONDICIONES = [
+  { valor: 1, etiqueta: 'Nuevo' },
+  { valor: 2, etiqueta: 'Como nuevo' },
+  { valor: 3, etiqueta: 'Buen estado' },
+  { valor: 4, etiqueta: 'Usado' },
+];
 
 @Component({
   selector: 'app-item-insertar',
-  imports: [    MatInputModule, 
-    MatDatepickerModule,
-    MatSelectModule,
-    MatButtonModule,
-    ReactiveFormsModule],
+  imports: [CommonModule, RouterLink, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './item-insertar.html',
   styleUrl: './item-insertar.css',
-  providers: [provideNativeDateAdapter()],
-
 })
-export class ItemInsertar implements OnInit{
+export class ItemInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
-  aut:Item=new Item;
+  categorias: Category[] = [];
+  condiciones = CONDICIONES;
+  enviando = false;
+  error = '';
+
   constructor(
     private iS: Itemservice,
+    private cS: Categoryservice,
     private router: Router,
     private formBuilder: FormBuilder,
   ) {}
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       titulo: ['', Validators.required],
       descripcion: ['', Validators.required],
       condicion: ['', Validators.required],
-      status: ['', Validators.required],
       categoria: ['', Validators.required],
     });
+    this.cS.list().subscribe({ next: (data) => (this.categorias = data) });
   }
+
   aceptar() {
-    if (this.form.valid) {
-      this.aut.titleItem = this.form.value.titulo;
-      this.aut.descriptionItem = this.form.value.descripcion;
-      this.aut.conditionItem = Number(this.form.value.condicion);
-      this.aut.statusItem = Number(this.form.value.status);
-      this.aut.categoryId = Number(this.form.value.categoria);
-      this.iS.insert(this.aut).subscribe({
-        next: () => {
-          this.router.navigate(['/item/insertar']);
-        },
-      });
-    }
-}}
+    if (!this.form.valid) return;
+
+    const item = new Item();
+    item.titleItem = this.form.value.titulo;
+    item.descriptionItem = this.form.value.descripcion;
+    item.conditionItem = Number(this.form.value.condicion);
+    item.statusItem = 1;
+    item.categoryId = Number(this.form.value.categoria);
+
+    this.enviando = true;
+    this.error = '';
+    this.iS.insert(item).subscribe({
+      next: () => this.router.navigate(['/items/listaritem']),
+      error: (err) => {
+        this.enviando = false;
+        this.error = err?.error ?? 'No se pudo publicar el item.';
+      },
+    });
+  }
+}

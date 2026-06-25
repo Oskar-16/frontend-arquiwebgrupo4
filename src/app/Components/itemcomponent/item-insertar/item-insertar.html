@@ -1,33 +1,48 @@
-<div class="container">
-  <div style="text-align: center; margin: 3%"><h2>Registro de Autores</h2></div>
-  <div style="text-align: center">
+<div class="form-container">
+  <div class="form-card mat-elevation-z1">
+    <h1>Publicar item</h1>
+    <p class="subtitulo">Completa los datos del item que quieres ofrecer en trueque.</p>
+
     <form [formGroup]="form" (submit)="aceptar()">
-      <mat-form-field class="example-full-width">
-        <mat-label>tituloitem</mat-label>
+      <mat-form-field appearance="outline" class="campo-full">
+        <mat-label>Título</mat-label>
         <input matInput formControlName="titulo" />
       </mat-form-field>
-      <br />
-      <mat-form-field class="example-full-width">
-        <mat-label>descripcion</mat-label>
-        <input matInput formControlName="descripcion" />
+
+      <mat-form-field appearance="outline" class="campo-full">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcion" rows="3"></textarea>
       </mat-form-field>
-      <br />
-      <mat-form-field>
-        <mat-label>condicion</mat-label>
-        <textarea matInput formControlName="condicion"></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>status</mat-label>
-        <textarea matInput formControlName="status"></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>categoria (ID)</mat-label>
-        <input matInput type="number" formControlName="categoria" />
-      </mat-form-field>
-      <div>
-        <button matButton="elevated">Registrar</button>
+
+      <div class="fila-doble">
+        <mat-form-field appearance="outline">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="categoria">
+            <mat-option *ngFor="let c of categorias" [value]="c.idCategory">
+              {{ c.nameCategory }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Condición</mat-label>
+          <mat-select formControlName="condicion">
+            <mat-option *ngFor="let c of condiciones" [value]="c.valor">
+              {{ c.etiqueta }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <p class="error-publicar" *ngIf="error">{{ error }}</p>
+
+      <div class="acciones-form">
+        <button matButton="outlined" type="button" routerLink="/items/listaritem">Cancelar</button>
+        <button matButton="elevated" type="submit" [disabled]="!form.valid || enviando">
+          <mat-icon>add</mat-icon>
+          Publicar item
+        </button>
       </div>
     </form>
   </div>
 </div>
-
