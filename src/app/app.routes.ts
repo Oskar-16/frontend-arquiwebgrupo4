@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { Homecomponent } from './Components/homecomponent/homecomponent';
 import { Logincomponent } from './Components/logincomponent/logincomponent';
 import { Layoutcomponent } from './Components/layoutcomponent/layoutcomponent';
 import { authGuard } from './Guards/auth.guard';
@@ -8,12 +7,20 @@ import { ItemListar } from './Components/itemcomponent/item-listar/item-listar';
 import { ItemInsertar } from './Components/itemcomponent/item-insertar/item-insertar';
 import { ItemActualizar } from './Components/itemcomponent/item-actualizar/item-actualizar';
 import { ItemBuscar } from './Components/itemcomponent/item-buscar/item-buscar';
+import { Explorarcomponent } from './Components/explorarcomponent/explorarcomponent';
+import { ItemDetalle } from './Components/itemcomponent/item-detalle/item-detalle';
+import { Landingcomponent } from './Components/landingcomponent/landingcomponent';
 import { Truequecomponent } from './Components/truequecomponent/truequecomponent';
+import { Verificacioncomponent } from './Components/verificacioncomponent/verificacioncomponent';
+import { VerificacionListar } from './Components/verificacioncomponent/verificacion-listar/verificacion-listar';
+import { VerificacionInsertar } from './Components/verificacioncomponent/verificacion-insertar/verificacion-insertar';
+import { VerificacionActualizar } from './Components/verificacioncomponent/verificacion-actualizar/verificacion-actualizar';
 
 export const routes: Routes = [
     {
+        // Landing page pública (raíz). El login queda detrás del CTA.
         path: '',
-        redirectTo: 'login',
+        component: Landingcomponent,
         pathMatch: 'full'
     },
     {
@@ -32,8 +39,22 @@ export const routes: Routes = [
         canActivate: [authGuard],
         children: [
             {
+                path: '',
+                redirectTo: 'explorar',
+                pathMatch: 'full'
+            },
+            {
+                path: 'explorar',
+                component: Explorarcomponent
+            },
+            {
+                path: 'explorar/:id',
+                component: ItemDetalle
+            },
+            {
                 path: 'homes',
-                component: Homecomponent
+                redirectTo: 'explorar',
+                pathMatch: 'full'
             },
             {
                 path: 'trueques',
@@ -58,6 +79,29 @@ export const routes: Routes = [
                     {
                         path: 'buscaritem',
                         component: ItemBuscar
+                    }
+                ]
+            },
+            {
+                path: 'trueques',
+                component: Truequecomponent
+            },
+            {
+                // Verificación KYC (consolidado desde el proyecto verificacionkyc/)
+                path: 'kyc',
+                component: Verificacioncomponent,
+                children: [
+                    {
+                        path: 'listar',
+                        component: VerificacionListar
+                    },
+                    {
+                        path: 'nuevo',
+                        component: VerificacionInsertar
+                    },
+                    {
+                        path: 'edits/:id',
+                        component: VerificacionActualizar
                     }
                 ]
             }

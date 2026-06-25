@@ -1,0 +1,15 @@
+.btn-eliminar {
+
+ background-color: #008000 !important;
+
+ color: white !important;
+
+ border-radius: 8px;
+
+ min-width: 40px;
+
+ transition: 0.3s;
+
+ border-color: #00FF00;
+
+}
