@@ -5,6 +5,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
+import { SearchService } from '../../Services/search.service';
 
 @Component({
   selector: 'app-menucomponent',
@@ -13,7 +14,15 @@ import { AuthService } from '../../Services/auth.service';
   styleUrl: './menucomponent.css',
 })
 export class Menucomponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private searchService: SearchService
+  ) {}
+
+  buscar(evento: Event): void {
+    this.searchService.set((evento.target as HTMLInputElement).value);
+  }
 
   cerrarSesion(): void {
     this.authService.logout();

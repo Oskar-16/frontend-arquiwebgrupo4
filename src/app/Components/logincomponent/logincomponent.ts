@@ -54,7 +54,7 @@ export class Logincomponent {
       next: (respuesta) => {
         this.authService.guardarToken(respuesta.token);
         this.cargandoLogin = false;
-        this.router.navigate(['/homes']);
+        this.router.navigate(['/explorar']);
       },
       error: (err) => {
         this.cargandoLogin = false;

@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="navbar">
   <div class="navbar-contenido">
     <!-- Marca -->
-    <a class="marca" routerLink="/homes">
+    <a class="marca" routerLink="/explorar">
       <mat-icon>swap_horiz</mat-icon>
       <span class="marca-texto">TuTrade</span>
     </a>
@@ -9,12 +9,12 @@
     <!-- Buscador -->
     <div class="buscador">
       <mat-icon class="buscador-icono">search</mat-icon>
-      <input type="text" placeholder="Buscar items..." class="buscador-input" />
+      <input type="text" placeholder="Buscar items..." class="buscador-input" (input)="buscar($event)" />
     </div>
 
     <!-- Navegación -->
     <nav class="nav-links">
-      <a matButton routerLink="/homes" routerLinkActive="activo">Explorar</a>
+      <a matButton routerLink="/explorar" routerLinkActive="activo">Explorar</a>
 
       <button matButton [matMenuTriggerFor]="menuItems">Mis items</button>
       <mat-menu #menuItems="matMenu">
@@ -24,6 +24,7 @@
       </mat-menu>
 
       <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
+      <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
     </nav>
 
     <!-- Acciones -->

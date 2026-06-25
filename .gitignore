@@ -43,3 +43,9 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 ng-serve.log
+
+# Dependencias / builds de cualquier sub-proyecto (a cualquier profundidad).
+# Evita que un `npm install`/`ng build` dentro de una subcarpeta se suba al repo.
+node_modules/
+dist/
+.angular/

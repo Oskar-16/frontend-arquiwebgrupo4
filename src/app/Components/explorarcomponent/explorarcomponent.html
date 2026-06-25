@@ -1,0 +1,47 @@
+<div class="explorar">
+  <h1 class="titulo">Explorar items</h1>
+  <p class="subtitulo">Filtra por categoría y propón un trueque por lo que te interese.</p>
+
+  <mat-chip-listbox class="filtros" aria-label="Filtrar por categoría">
+    <mat-chip-option [selected]="categoriaSel() === null" (click)="seleccionarCategoria(null)">
+      Todos
+    </mat-chip-option>
+    @for (c of categorias(); track c.idCategory) {
+      <mat-chip-option
+        [selected]="categoriaSel() === c.idCategory"
+        (click)="seleccionarCategoria(c.idCategory)">
+        {{ c.nameCategory }}
+      </mat-chip-option>
+    }
+  </mat-chip-listbox>
+
+  @if (cargando()) {
+    <div class="centro"><mat-spinner diameter="44"></mat-spinner></div>
+  } @else if (itemsFiltrados().length === 0) {
+    <p class="vacio">No hay items para mostrar.</p>
+  } @else {
+    <div class="grid">
+      @for (it of itemsFiltrados(); track it.idItem) {
+        <mat-card class="card-item" [routerLink]="['/explorar', it.idItem]">
+          <div class="thumb">
+            <mat-icon>{{ iconoCategoria(it.category?.nameCategory) }}</mat-icon>
+          </div>
+          <div class="card-body">
+            <h3 class="card-titulo">{{ it.titleItem }}</h3>
+            <p class="card-categoria">{{ it.category?.nameCategory || 'Sin categoría' }}</p>
+            <div class="card-pie">
+              <span class="duenio">
+                <span class="avatar-mini">{{ iniciales(it) }}</span>
+                {{ nombreDueno(it) }}
+              </span>
+              <span class="estado" [class]="estadoClase(it.statusItem)">
+                <mat-icon class="estado-ico">check_circle</mat-icon>
+                {{ estadoTexto(it.statusItem) }}
+              </span>
+            </div>
+          </div>
+        </mat-card>
+      }
+    </div>
+  }
+</div>
