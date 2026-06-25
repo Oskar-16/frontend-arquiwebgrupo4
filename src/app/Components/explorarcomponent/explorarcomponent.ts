@@ -5,7 +5,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Itemservice } from '../../Services/itemservice';
-import { CategoryService } from '../../Services/category.service';
+import { Categoryservice } from '../../Services/categoryservice';
 import { SearchService } from '../../Services/search.service';
 import { ItemResponse } from '../../Models/item-response';
 import { Category } from '../../Models/category';
@@ -18,7 +18,7 @@ import { Category } from '../../Models/category';
 })
 export class Explorarcomponent implements OnInit {
   private itemSrv = inject(Itemservice);
-  private catSrv = inject(CategoryService);
+  private catSrv = inject(Categoryservice);
   private searchSrv = inject(SearchService);
 
   cargando = signal(true);
