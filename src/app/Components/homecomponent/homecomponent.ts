@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { Item } from '../../Models/item';
+import { Item } from '../../Models/item-request';
 import { Category } from '../../Models/category';
 import { Itemservice } from '../../Services/itemservice';
 import { Categoryservice } from '../../Services/categoryservice';

@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item } from './item-request';
 
 export class TradeUser {
     idUser: number = 0;

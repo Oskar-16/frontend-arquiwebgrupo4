@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Item } from '../../../Models/item';
+import { Item } from '../../../Models/item-request';
 import { Category } from '../../../Models/category';
 import { Itemservice } from '../../../Services/itemservice';
 import { Categoryservice } from '../../../Services/categoryservice';

@@ -1,0 +1,28 @@
+<div class="form-container">
+  <div class="form-card mat-elevation-z1">
+    <h1>actualizar categoria</h1>
+    <p class="subtitulo">Completa los datos para actualizar</p>
+
+    <form [formGroup]="form" (submit)="aceptar()">
+      <mat-form-field appearance="outline" class="campo-full">
+        <mat-label>nombre</mat-label>
+        <input matInput formControlName="nombre" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="campo-full">
+        <mat-label>parent_id</mat-label>
+        <textarea matInput formControlName="parent_id" rows="3"></textarea>
+      </mat-form-field>
+
+      <p class="error-publicar" *ngIf="error">{{ error }}</p>
+
+      <div class="acciones-form">
+        <button matButton="outlined" type="button" routerLink="/items/listaritem">Cancelar</button>
+        <button matButton="elevated" type="submit" [disabled]="!form.valid || enviando">
+          <mat-icon>add</mat-icon>
+          Actualizar categoria
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

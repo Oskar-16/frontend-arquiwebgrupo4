@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { enviroment } from "../../Enviroments/enviroments";
 import { HttpClient } from '@angular/common/http';
-import { Item } from "../Models/item";
+import { Item } from "../Models/item-request";
 import { ItemResponse } from "../Models/item-response";
+import { enviroment } from "../../Enviroments/enviroments.developments";
 
 @Injectable({
     providedIn: 'root',
