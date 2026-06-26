@@ -25,6 +25,12 @@
 
       <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
       <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
+      <button matButton [matMenuTriggerFor]="menuCategories">categorias</button>
+      
+      <mat-menu #menuCategories="matMenu">
+        <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
+        <a mat-menu-item routerLink="/categories/insertar">Registrar Categoria</a>
+      </mat-menu>
     </nav>
 
     <!-- Acciones -->

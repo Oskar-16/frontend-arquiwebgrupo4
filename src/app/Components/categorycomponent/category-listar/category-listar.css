@@ -1,0 +1,99 @@
+.mis-items-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  position: relative;
+}
+
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.btn-publicar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-plan {
+  display: inline-block;
+  margin: 12px 0 16px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: #fff3cd;
+  color: #7a5b00;
+  font-size: 13px;
+}
+
+.tabla-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+.celda-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icono-item {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #e3ece3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b6b4b;
+}
+
+.chip-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.chip-estado mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.estado-disponible {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.estado-pausado {
+  background: #fff3cd;
+  color: #946200;
+}
+
+.estado-intercambiado {
+  background: #e3eaf7;
+  color: #3454a3;
+}
+
+.btn-eliminar {
+  color: #c0392b;
+}
+
+.fab-publicar {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+}

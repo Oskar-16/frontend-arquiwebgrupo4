@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
-import { enviroment } from '../../Enviroments/enviroments';
+
 import { LoginRequest } from '../Models/LoginRequest';
 import { LoginResponse } from '../Models/LoginResponse';
 import { RegisterRequest } from '../Models/RegisterRequest';
+import { enviroment } from '../../Enviroments/enviroments.developments';
 
 @Injectable({
   providedIn: 'root'

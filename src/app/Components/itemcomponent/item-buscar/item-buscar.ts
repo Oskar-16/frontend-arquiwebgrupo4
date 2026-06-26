@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Item } from '../../../Models/item';
+import { Item } from '../../../Models/item-request';
 import { Category } from '../../../Models/category';
 import { Itemservice } from '../../../Services/itemservice';
 import { Categoryservice } from '../../../Services/categoryservice';
