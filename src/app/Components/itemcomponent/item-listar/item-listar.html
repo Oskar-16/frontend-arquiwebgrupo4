@@ -41,7 +41,7 @@
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element">
-          <button matIconButton routerLink="/items/actualizaritem" aria-label="Editar">
+          <button matIconButton [routerLink]="['/items/actualizaritem',element.idAuthor]"aria-label="Editar">
             <mat-icon>edit</mat-icon>
           </button>
           <button matIconButton (click)="eliminar(element.idItem)" class="btn-eliminar" aria-label="Eliminar">

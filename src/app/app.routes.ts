@@ -15,6 +15,9 @@ import { Verificacioncomponent } from './Components/verificacioncomponent/verifi
 import { VerificacionListar } from './Components/verificacioncomponent/verificacion-listar/verificacion-listar';
 import { VerificacionInsertar } from './Components/verificacioncomponent/verificacion-insertar/verificacion-insertar';
 import { VerificacionActualizar } from './Components/verificacioncomponent/verificacion-actualizar/verificacion-actualizar';
+import { CategoryListar } from './Components/categorycomponent/category-listar/category-listar';
+import { CategoryInsertar } from './Components/categorycomponent/category-insertar/category-insertar';
+import { CategoryActualizar } from './Components/categorycomponent/category-actualizar/category-actualizar';
 
 export const routes: Routes = [
     {
@@ -73,12 +76,30 @@ export const routes: Routes = [
                         component: ItemInsertar
                     },
                     {
-                        path: 'actualizaritem',
+                        path: 'actualizaritem/:id',
                         component: ItemActualizar
                     },
                     {
                         path: 'buscaritem',
                         component: ItemBuscar
+                    }
+                ]
+            },
+            {
+                path: 'categories',
+                component: Itemcomponent,
+                children: [
+                    {
+                        path: 'listar',
+                        component: CategoryListar
+                    },
+                    {
+                        path: 'insertar',
+                        component: CategoryInsertar
+                    },
+                    {
+                        path: 'actualizar/:id',
+                        component: CategoryActualizar
                     }
                 ]
             },
@@ -110,5 +131,6 @@ export const routes: Routes = [
     {
         path: '**',
         redirectTo: 'login'
-    }
+    },
+
 ];

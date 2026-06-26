@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Item } from '../../../Models/item';
+import { Item } from '../../../Models/item-request';
 import { Itemservice } from '../../../Services/itemservice';
 import { AuthService } from '../../../Services/auth.service';
 
