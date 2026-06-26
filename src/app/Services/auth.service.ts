@@ -64,4 +64,19 @@ export class AuthService {
       return null;
     }
   }
+
+  obtenerRol(): string | null {
+    const token = this.obtenerToken();
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  esAdmin(): boolean {
+    return this.obtenerRol() === 'ADMIN';
+  }
 }

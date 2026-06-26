@@ -24,6 +24,10 @@ export class Menucomponent {
     this.searchService.set((evento.target as HTMLInputElement).value);
   }
 
+  esAdmin(): boolean {
+    return this.authService.esAdmin();
+  }
+
   cerrarSesion(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

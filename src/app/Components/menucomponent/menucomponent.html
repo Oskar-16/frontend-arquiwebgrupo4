@@ -24,13 +24,14 @@
       </mat-menu>
 
       <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
-      <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
-      <button matButton [matMenuTriggerFor]="menuCategories">categorias</button>
-      
-      <mat-menu #menuCategories="matMenu">
-        <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
-        <a mat-menu-item routerLink="/categories/insertar">Registrar Categoria</a>
-      </mat-menu>
+      @if (esAdmin()) {
+        <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
+        <button matButton [matMenuTriggerFor]="menuCategories">Categorias</button>
+        <mat-menu #menuCategories="matMenu">
+          <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
+          <a mat-menu-item routerLink="/categories/insertar">Registrar Categoria</a>
+        </mat-menu>
+      }
     </nav>
 
     <!-- Acciones -->
@@ -43,6 +44,14 @@
         <span class="avatar-iniciales">U</span>
       </button>
       <mat-menu #menuUsuario="matMenu">
+          <a mat-menu-item routerLink="/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Mi perfil</span>
+        </a>
+        <a mat-menu-item routerLink="/reportar">
+          <mat-icon>flag</mat-icon>
+          <span>Reportar usuario</span>
+        </a>
         <button mat-menu-item (click)="cerrarSesion()">
           <mat-icon>logout</mat-icon>
           <span>Cerrar sesión</span>

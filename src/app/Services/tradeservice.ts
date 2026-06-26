@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Trade } from "../Models/trade";
 import { enviroment } from "../../Enviroments/enviroments.developments";
 
+export interface TradeRequest {
+    receiverId: number;
+    proposerItemIds: number[];
+    receiverItemIds: number[];
+}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -29,5 +35,9 @@ export class Tradeservice {
 
     cancelar(id: number) {
         return this.http.put(`${this.url}/${id}/cancel`, {});
+    }
+
+    crear(dto: TradeRequest) {
+        return this.http.post<Trade>(this.url, dto);
     }
 }

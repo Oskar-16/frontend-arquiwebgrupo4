@@ -18,6 +18,9 @@ import { VerificacionActualizar } from './Components/verificacioncomponent/verif
 import { CategoryListar } from './Components/categorycomponent/category-listar/category-listar';
 import { CategoryInsertar } from './Components/categorycomponent/category-insertar/category-insertar';
 import { CategoryActualizar } from './Components/categorycomponent/category-actualizar/category-actualizar';
+import { Profilecomponent } from './Components/profilecomponent/profilecomponent';
+import { Reportcomponent } from './Components/reportcomponent/reportcomponent';
+import { adminGuard } from './Guards/admin.guard';
 
 export const routes: Routes = [
     {
@@ -88,6 +91,7 @@ export const routes: Routes = [
             {
                 path: 'categories',
                 component: Itemcomponent,
+                canActivate: [adminGuard],
                 children: [
                     {
                         path: 'listar',
@@ -108,9 +112,18 @@ export const routes: Routes = [
                 component: Truequecomponent
             },
             {
+                path: 'perfil',
+                component: Profilecomponent
+            },
+            {
+                path: 'reportar',
+                component: Reportcomponent
+            },
+            {
                 // Verificación KYC (consolidado desde el proyecto verificacionkyc/)
                 path: 'kyc',
                 component: Verificacioncomponent,
+                canActivate: [adminGuard],
                 children: [
                     {
                         path: 'listar',
