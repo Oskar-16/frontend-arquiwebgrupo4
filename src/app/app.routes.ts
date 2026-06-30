@@ -21,6 +21,8 @@ import { CategoryActualizar } from './Components/categorycomponent/category-actu
 import { Profilecomponent } from './Components/profilecomponent/profilecomponent';
 import { Reportcomponent } from './Components/reportcomponent/reportcomponent';
 import { adminGuard } from './Guards/admin.guard';
+import { Impactocomponent } from './Components/impactocomponent/impactocomponent';
+import { Guiacomponent } from './Components/guiacomponent/guiacomponent';
 
 export const routes: Routes = [
     {
@@ -118,6 +120,16 @@ export const routes: Routes = [
             {
                 path: 'reportar',
                 component: Reportcomponent
+            },
+            {
+                // HU08 - Impacto Ambiental del usuario
+                path: 'impacto',
+                component: Impactocomponent
+            },
+            {
+                // HU20 - Guía de uso
+                path: 'guia',
+                component: Guiacomponent
             },
             {
                 // Verificación KYC (consolidado desde el proyecto verificacionkyc/)

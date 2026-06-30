@@ -1,0 +1,74 @@
+<div class="impacto-container">
+  <header class="impacto-header">
+    <mat-icon class="header-icono">eco</mat-icon>
+    <div>
+      <h1>Tu impacto ambiental</h1>
+      <p class="subtitulo">El CO₂ que evitas al dar una segunda vida a los objetos en lugar de comprarlos nuevos.</p>
+    </div>
+  </header>
+
+  @if (cargando) {
+    <p class="estado">Cargando tu impacto…</p>
+  } @else if (error) {
+    <p class="estado error">{{ error }}</p>
+  } @else if (sinDatos) {
+    <div class="vacio">
+      <mat-icon>recycling</mat-icon>
+      <h2>Aún no tienes impacto registrado</h2>
+      <p>Completa tu primer trueque para empezar a evitar emisiones de CO₂.</p>
+      <a class="cta" routerLink="/explorar">Explorar artículos</a>
+    </div>
+  } @else if (impacto) {
+    <!-- Tarjetas principales (solo datos reales) -->
+    <section class="tarjetas">
+      <div class="tarjeta co2">
+        <mat-icon>cloud</mat-icon>
+        <span class="valor">{{ impacto.co2SavedKg | number:'1.0-1' }}</span>
+        <span class="unidad">kg CO₂ evitados</span>
+      </div>
+      <div class="tarjeta items">
+        <mat-icon>recycling</mat-icon>
+        <span class="valor">{{ impacto.itemsReused }}</span>
+        <span class="unidad">artículos reutilizados</span>
+      </div>
+      <div class="tarjeta trades">
+        <mat-icon>swap_horiz</mat-icon>
+        <span class="valor">{{ impacto.tradesCompleted }}</span>
+        <span class="unidad">trueques completados</span>
+      </div>
+    </section>
+
+    <!-- Desglose por categoría -->
+    @if (impacto.breakdown.length > 0) {
+      <section class="desglose">
+        <h2>Desglose por categoría</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Categoría</th>
+              <th>Artículos</th>
+              <th>CO₂ evitado (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (c of impacto.breakdown; track c.category) {
+              <tr>
+                <td>{{ c.category }}</td>
+                <td>{{ c.items }}</td>
+                <td>{{ c.co2SavedKg | number:'1.0-1' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <p class="fuente">
+      @if (impacto.source === 'climatiq') {
+        Cálculo de CO₂ con datos reales de Climatiq (factores EPA / US EEIO).
+      } @else {
+        Estimación de CO₂ basada en valores de referencia de Climatiq.
+      }
+    </p>
+  }
+</div>

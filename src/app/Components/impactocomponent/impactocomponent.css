@@ -1,0 +1,174 @@
+.impacto-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+}
+
+.impacto-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.impacto-header .header-icono {
+  font-size: 44px;
+  width: 44px;
+  height: 44px;
+  color: #198754;
+}
+
+.impacto-header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #0f5132;
+}
+
+.subtitulo {
+  margin: 4px 0 0;
+  color: #5c6770;
+  font-size: 14px;
+}
+
+.estado {
+  text-align: center;
+  color: #5c6770;
+  padding: 40px 0;
+}
+
+.estado.error {
+  color: #b91c1c;
+}
+
+/* Estado vacío */
+.vacio {
+  text-align: center;
+  padding: 48px 24px;
+  border: 1px dashed #bbf7d0;
+  border-radius: 12px;
+  background: #f0fdf4;
+}
+
+.vacio mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #198754;
+}
+
+.vacio h2 {
+  margin: 12px 0 4px;
+  color: #0f5132;
+}
+
+.vacio p {
+  color: #5c6770;
+  margin: 0 0 18px;
+}
+
+.cta {
+  display: inline-block;
+  background: #198754;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cta:hover {
+  background: #157347;
+}
+
+/* Tarjetas principales */
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: 14px;
+  color: #fff;
+}
+
+.tarjeta mat-icon {
+  font-size: 34px;
+  width: 34px;
+  height: 34px;
+  opacity: 0.9;
+}
+
+.tarjeta .valor {
+  font-size: 34px;
+  font-weight: 700;
+  margin-top: 8px;
+  line-height: 1.1;
+}
+
+.tarjeta .unidad {
+  font-size: 13px;
+  opacity: 0.95;
+  margin-top: 4px;
+}
+
+.tarjeta.co2 { background: linear-gradient(135deg, #198754, #14532d); }
+.tarjeta.items { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+.tarjeta.trades { background: linear-gradient(135deg, #6366f1, #4338ca); }
+
+/* Resumen */
+.resumen {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  margin-bottom: 30px;
+  color: #344049;
+  font-size: 15px;
+}
+
+.resumen strong {
+  color: #0f5132;
+  font-size: 20px;
+}
+
+/* Desglose */
+.desglose h2 {
+  font-size: 18px;
+  color: #0f5132;
+  margin-bottom: 10px;
+}
+
+.desglose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.desglose th {
+  text-align: left;
+  background: #198754;
+  color: #fff;
+  padding: 10px 12px;
+}
+
+.desglose td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #e3e8ee;
+}
+
+.desglose tbody tr:nth-child(even) {
+  background: #f7faf8;
+}
+
+.fuente {
+  margin-top: 18px;
+  font-size: 12px;
+  color: #8a949e;
+  font-style: italic;
+}
