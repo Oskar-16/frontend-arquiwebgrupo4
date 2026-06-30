@@ -1,4 +1,5 @@
 import { Category } from './../../../Models/category';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +15,8 @@ import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-category-insertar',
-  imports: [MatInputModule,
+  imports: [CommonModule,
+    MatInputModule,
     MatDatepickerModule,
     MatSelectModule,
     MatButtonModule, MatIconModule,
