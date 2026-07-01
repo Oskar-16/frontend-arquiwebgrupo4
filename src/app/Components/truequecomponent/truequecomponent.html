@@ -38,7 +38,7 @@
           </div>
 
           <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
-            <button matButton="outlined" [disabled]="!t.chatId">
+            <button matButton="outlined" [disabled]="!t.chatId" (click)="abrirChat(t, t.proposer)">
               <mat-icon>chat</mat-icon> Abrir chat
             </button>
           </div>
@@ -81,7 +81,7 @@
           </div>
 
           <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
-            <button matButton="outlined" [disabled]="!t.chatId">
+            <button matButton="outlined" [disabled]="!t.chatId" (click)="abrirChat(t, t.receiver)">
               <mat-icon>chat</mat-icon> Abrir chat
             </button>
           </div>

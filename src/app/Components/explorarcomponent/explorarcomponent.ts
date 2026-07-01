@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -29,18 +29,35 @@ export class Explorarcomponent implements OnInit {
   // El texto de búsqueda viene del navbar (SearchService).
   query = this.searchSrv.query;
 
+  // Solo filtramos categoría en el cliente; el texto lo resuelve el backend (HU03).
   itemsFiltrados = computed(() => {
-    const q = this.query().trim().toLowerCase();
     const cat = this.categoriaSel();
-    return this.items().filter((it) => {
-      const okCat = cat === null || it.category?.idCategory === cat;
-      const okQ = !q || (it.titleItem ?? '').toLowerCase().includes(q);
-      return okCat && okQ;
-    });
+    return this.items().filter((it) => cat === null || it.category?.idCategory === cat);
   });
+
+  constructor() {
+    // Cuando cambia el texto del buscador pedimos al backend; si está vacío, todos.
+    effect(() => {
+      const q = this.query().trim();
+      if (q.length === 0) {
+        this.cargarTodos();
+      } else {
+        this.itemSrv.buscar(q).subscribe({
+          next: (r) => {
+            this.items.set(r ?? []);
+            this.cargando.set(false);
+          },
+          error: () => this.cargando.set(false),
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.catSrv.list().subscribe({ next: (c) => this.categorias.set(c ?? []) });
+  }
+
+  private cargarTodos(): void {
     this.itemSrv.listResponse().subscribe({
       next: (items) => {
         this.items.set(items ?? []);

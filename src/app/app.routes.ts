@@ -23,6 +23,10 @@ import { Reportcomponent } from './Components/reportcomponent/reportcomponent';
 import { adminGuard } from './Guards/admin.guard';
 import { Impactocomponent } from './Components/impactocomponent/impactocomponent';
 import { Guiacomponent } from './Components/guiacomponent/guiacomponent';
+import { Chatcomponent } from './Components/chatcomponent/chatcomponent';
+import { Ofertascomponent } from './Components/ofertascomponent/ofertascomponent';
+import { Premiumcomponent } from './Components/premiumcomponent/premiumcomponent';
+import { Adminpremiumcomponent } from './Components/adminpremiumcomponent/adminpremiumcomponent';
 
 export const routes: Routes = [
     {
@@ -130,6 +134,27 @@ export const routes: Routes = [
                 // HU20 - Guía de uso
                 path: 'guia',
                 component: Guiacomponent
+            },
+            {
+                // HU11 - Chat interno del trueque (+ punto de encuentro)
+                path: 'chat/:tradeId',
+                component: Chatcomponent
+            },
+            {
+                // HU21 - Comparativa de ofertas recibidas por un item
+                path: 'ofertas/:itemId',
+                component: Ofertascomponent
+            },
+            {
+                // HU06 - Contratar plan premium
+                path: 'premium',
+                component: Premiumcomponent
+            },
+            {
+                // HU07 - Validación de premium por el staff
+                path: 'admin/premium',
+                component: Adminpremiumcomponent,
+                canActivate: [adminGuard]
             },
             {
                 // Verificación KYC (consolidado desde el proyecto verificacionkyc/)

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
-import { Trade } from '../../Models/trade';
+import { Trade, TradeUser } from '../../Models/trade';
 import { Tradeservice } from '../../Services/tradeservice';
 
 const ESTADOS: Record<string, string> = {
@@ -30,7 +31,15 @@ export class Truequecomponent implements OnInit {
   recibidos: Trade[] = [];
   enviados: Trade[] = [];
 
-  constructor(private tradeS: Tradeservice) {}
+  constructor(private tradeS: Tradeservice, private router: Router) {}
+
+  abrirChat(t: Trade, otro: TradeUser | undefined): void {
+    if (!t.chatId) return;
+    // navegamos por tradeId (el chat resuelve chat + punto de encuentro con él)
+    this.router.navigate(['/chat', t.idTrade], {
+      state: { otro: otro?.usernameUser ?? '', otroId: otro?.idUser ?? 0 },
+    });
+  }
 
   ngOnInit(): void {
     this.cargar();

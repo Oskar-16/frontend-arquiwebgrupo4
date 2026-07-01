@@ -27,6 +27,7 @@
       <a matButton routerLink="/impacto" routerLinkActive="activo">Impacto</a>
       @if (esAdmin()) {
         <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
+        <a matButton routerLink="/admin/premium" routerLinkActive="activo">Usuarios</a>
         <button matButton [matMenuTriggerFor]="menuCategories">Categorias</button>
         <mat-menu #menuCategories="matMenu">
           <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
@@ -51,6 +52,10 @@
           <a mat-menu-item routerLink="/perfil">
           <mat-icon>person</mat-icon>
           <span>Mi perfil</span>
+        </a>
+        <a mat-menu-item routerLink="/premium">
+          <mat-icon>workspace_premium</mat-icon>
+          <span>Hazte Premium</span>
         </a>
         <a mat-menu-item routerLink="/reportar">
           <mat-icon>flag</mat-icon>
