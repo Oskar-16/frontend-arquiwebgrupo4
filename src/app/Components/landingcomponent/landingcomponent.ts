@@ -124,10 +124,10 @@ export class Landingcomponent {
   ];
 
   readonly equipo: Integrante[] = [
-    { nombre: 'Christian Bernabe Chacaliaza', rol: 'Backend', iniciales: 'CB' },
+    { nombre: 'Christian Bernabe Chacaliaza', rol: 'QA & Testing', iniciales: 'CB' },
     { nombre: 'Oskar Guerrero Preciado', rol: 'Frontend', iniciales: 'OG' },
     { nombre: 'Carlo Francesko Montesinos', rol: 'Full-stack', iniciales: 'CM' },
-    { nombre: 'Miguel Salas Guillen', rol: 'QA & Testing', iniciales: 'MS' },
+    { nombre: 'Miguel Salas Guillen', rol: 'Backend', iniciales: 'MS' },
     { nombre: 'David Torres Meneses', rol: 'UX / UI', iniciales: 'DT' },
   ];
 
