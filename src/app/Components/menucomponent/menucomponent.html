@@ -24,6 +24,7 @@
       </mat-menu>
 
       <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
+      <a matButton routerLink="/impacto" routerLinkActive="activo">Impacto</a>
       @if (esAdmin()) {
         <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
         <button matButton [matMenuTriggerFor]="menuCategories">Categorias</button>
@@ -36,6 +37,9 @@
 
     <!-- Acciones -->
     <div class="acciones">
+      <a mat-icon-button routerLink="/guia" aria-label="Guía de uso" matTooltip="Cómo funciona">
+        <mat-icon>help_outline</mat-icon>
+      </a>
       <button mat-icon-button aria-label="Notificaciones">
         <mat-icon>notifications</mat-icon>
       </button>
