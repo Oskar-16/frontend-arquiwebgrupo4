@@ -21,6 +21,11 @@ export class Tradeservice {
         return this.http.get<Trade[]>(`${this.url}/received`);
     }
 
+    // HU21: propuestas hechas sobre un item mío (para comparar ofertas)
+    porItem(itemId: number) {
+        return this.http.get<Trade[]>(`${this.url}/item/${itemId}`);
+    }
+
     enviados() {
         return this.http.get<Trade[]>(`${this.url}/sent`);
     }

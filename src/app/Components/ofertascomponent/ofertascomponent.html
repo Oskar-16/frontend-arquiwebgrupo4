@@ -1,0 +1,36 @@
+<div class="ofertas-container">
+  <h1>Ofertas recibidas</h1>
+  <p class="sub">Compara las propuestas por tu item y acepta la que más te convenga.</p>
+
+  <p class="vacio" *ngIf="cargando">Cargando ofertas…</p>
+  <p class="vacio" *ngIf="!cargando && !ofertas.length">Todavía no hay propuestas por este item.</p>
+
+  <div class="lista-ofertas">
+    <div class="card-oferta" *ngFor="let t of ofertas">
+      <div class="cabecera">
+        <div class="usuario">
+          <span class="avatar-mini">{{ inicialesDe(t.proposer?.usernameUser) }}</span>
+          <div>
+            <div class="nombre">{{ t.proposer?.usernameUser }}</div>
+            <div class="tiempo">{{ t.created_atTrade }}</div>
+          </div>
+        </div>
+        <span class="chip-estado">{{ estadoTexto(t.statusTrade) }}</span>
+      </div>
+
+      <div class="ofrece">
+        <span class="etiqueta">Te ofrece</span>
+        <span class="valor">{{ textoItems(t.proposerItems) }}</span>
+      </div>
+
+      <div class="acciones" *ngIf="t.statusTrade === 'PENDING'">
+        <button matButton="outlined" class="btn-rechazar" (click)="rechazar(t)">
+          <mat-icon>close</mat-icon> Rechazar
+        </button>
+        <button matButton="elevated" (click)="aceptar(t)">
+          <mat-icon>check</mat-icon> Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

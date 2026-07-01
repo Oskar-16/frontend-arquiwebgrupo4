@@ -30,6 +30,11 @@ export class Itemservice {
         return this.http.get<ItemResponse[]>(`${this.url}/user/${userId}`);
     }
 
+    // HU03: búsqueda por texto en el backend
+    buscar(q: string) {
+        return this.http.get<ItemResponse[]>(`${this.url}/search`, { params: { q } });
+    }
+
     insert(i: Item) {
         return this.http.post(this.url, i);
     }

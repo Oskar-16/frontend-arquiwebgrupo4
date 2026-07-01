@@ -1,0 +1,263 @@
+:host {
+  --primary: #2e7d32;
+  --primary-container: #c8e6c9;
+  --on-primary-container: #1b5e20;
+  --accent: #ffb300;
+  --surface: #ffffff;
+  --text: #1c1b1f;
+  --text-muted: #5f6368;
+  --outline-light: #e3e5e3;
+  --outline: #c4c7c5;
+  display: block;
+}
+
+.chat-page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+/* ---- cabecera ---- */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+}
+.chat-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 15px;
+}
+.chat-header .nombre {
+  font-size: 18px;
+  font-weight: 500;
+}
+.estado-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #e6f4ea;
+  color: #1b5e20;
+}
+.estado-ok mat-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.error {
+  background: #fce8e6;
+  color: #b3261e;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+/* ---- tarjetas ---- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--outline-light);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+/* ---- punto de encuentro ---- */
+.punto {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.punto-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.punto-info .ico-place {
+  color: var(--primary);
+}
+.punto .col {
+  display: flex;
+  flex-direction: column;
+}
+.titulo {
+  font-weight: 500;
+}
+.muted {
+  color: var(--text-muted);
+  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.muted mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.punto-fecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.punto-form {
+  padding: 16px 18px;
+  width: 100%;
+}
+.punto-form-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* ---- campos ---- */
+.field {
+  position: relative;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: var(--surface);
+  margin-top: 14px;
+}
+.field > label {
+  position: absolute;
+  top: -8px;
+  left: 11px;
+  background: var(--surface);
+  padding: 0 5px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.field input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: transparent;
+}
+
+/* ---- hilo de mensajes ---- */
+.thread-card {
+  display: flex;
+  flex-direction: column;
+}
+.chat-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  min-height: 260px;
+  max-height: 52vh;
+  overflow-y: auto;
+  background: #f1f4f1;
+  border-radius: 12px 12px 0 0;
+}
+.centro {
+  margin: auto;
+  text-align: center;
+}
+.bubble {
+  max-width: 72%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.bubble .time {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.bubble.in {
+  align-self: flex-start;
+  background: #eceff1;
+  border-bottom-left-radius: 4px;
+}
+.bubble.out {
+  align-self: flex-end;
+  background: var(--primary-container);
+  border-bottom-right-radius: 4px;
+}
+
+/* ---- input ---- */
+.chat-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--outline-light);
+}
+.chat-input .field {
+  margin-top: 0;
+}
+.grow {
+  flex: 1;
+}
+.btn-enviar {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-enviar mat-icon {
+  color: #fff;
+}
+
+/* ---- calificación ---- */
+.rating {
+  padding: 16px 18px;
+  background: #fffdf5;
+  border-color: #ffe3a3;
+}
+.rating-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.ico-star {
+  color: var(--accent-dark, #ff8f00);
+}
+.estrellas {
+  display: flex;
+  gap: 2px;
+  margin: 10px 0;
+}
+.estrellas mat-icon {
+  cursor: pointer;
+  color: #c4c7c5;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+.estrellas mat-icon.activa {
+  color: #ff8f00;
+}
+.rating-ok {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1b5e20;
+}
+.rating-ok mat-icon {
+  color: #2e7d32;
+}
