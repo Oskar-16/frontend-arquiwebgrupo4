@@ -7,7 +7,9 @@
     </button>
   </div>
 
-  <span class="badge-plan">{{ itemsActivos }} / {{ limitePlan }} items activos — plan gratuito</span>
+  <span class="badge-plan" *ngIf="esPremium">Premium — items activos ilimitados</span>
+  <span class="badge-plan" *ngIf="!esPremium">{{ itemsActivos }} / {{ limitePlan }} items activos — plan gratuito</span>
+  <p class="error-mensaje" *ngIf="error">{{ error }}</p>
 
   <div class="tabla-card mat-elevation-z1">
     <table mat-table [dataSource]="dataSource">
@@ -44,7 +46,7 @@
           <button matIconButton [routerLink]="['/ofertas',element.idItem]" aria-label="Ver ofertas">
             <mat-icon>local_offer</mat-icon>
           </button>
-          <button matIconButton [routerLink]="['/items/actualizaritem',element.idAuthor]"aria-label="Editar">
+          <button matIconButton [routerLink]="['/items/actualizaritem', element.idItem]" aria-label="Editar">
             <mat-icon>edit</mat-icon>
           </button>
           <button matIconButton (click)="eliminar(element.idItem)" class="btn-eliminar" aria-label="Eliminar">

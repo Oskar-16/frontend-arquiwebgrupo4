@@ -21,6 +21,10 @@ export class Userservice {
     return this.http.get<Usuario[]>(this.url);
   }
 
+  misDatos() {
+    return this.http.get<Usuario>(`${this.url}/me`);
+  }
+
   togglePremium(id: number) {
     return this.http.put(`${this.url}/${id}/premium`, {}, { responseType: 'text' });
   }
