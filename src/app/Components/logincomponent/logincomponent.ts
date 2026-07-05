@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -44,7 +44,11 @@ export class Logincomponent {
   // Tab activo (0 = login, 1 = registro)
   tabActivo = 0;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   iniciarSesion(): void {
     this.errorLogin = '';
@@ -65,6 +69,10 @@ export class Logincomponent {
         } else {
           this.errorLogin = 'Error al conectar con el servidor. Intenta de nuevo.';
         }
+        // detectChanges forzado: el tick automático de zone.js puede abortar a mitad
+        // de camino por el NG0100 que dispara mat-tab-group (ver app.config.ts), y
+        // eso dejaba el mensaje de error sin pintar aunque el estado sí cambiaba.
+        this.cdr.detectChanges();
       }
     });
   }
@@ -77,10 +85,12 @@ export class Logincomponent {
       next: () => {
         this.cargandoRegistro = false;
         this.exitoRegistro = true;
+        this.cdr.detectChanges();
         // Tras registrar, pasar a la pestaña de login para iniciar sesión
         setTimeout(() => {
           this.exitoRegistro = false;
           this.tabActivo = 0;
+          this.cdr.detectChanges();
         }, 1500);
       },
       error: (err) => {
@@ -90,6 +100,7 @@ export class Logincomponent {
         } else {
           this.errorRegistro = 'Error al conectar con el servidor. Intenta de nuevo.';
         }
+        this.cdr.detectChanges();
       }
     });
   }
