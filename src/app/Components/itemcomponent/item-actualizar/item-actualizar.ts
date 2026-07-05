@@ -85,14 +85,17 @@ export class ItemActualizar implements OnInit {
     });
   }
   init(){
-    this.iS.listId(this.id).subscribe(data=>{
-      this.statusActual = data.statusItem;
-      this.form.patchValue({
-        titulo:data.titleItem,
-        descripcion:data.descriptionItem,
-        condicion:data.conditionItem,
-        categoria:data.categoryId,
-      })
+    this.iS.listId(this.id).subscribe({
+      next: (data) => {
+        this.statusActual = data.statusItem;
+        this.form.patchValue({
+          titulo:data.titleItem,
+          descripcion:data.descriptionItem,
+          condicion:data.conditionItem,
+          categoria:data.categoryId,
+        })
+      },
+      error: () => { this.error = 'No se pudo cargar el ítem.'; },
     })
   }
 }

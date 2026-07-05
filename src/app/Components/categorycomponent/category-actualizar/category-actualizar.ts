@@ -65,11 +65,14 @@ export class CategoryActualizar implements OnInit {
     })
   }
   init(){
-    this.cS.listId(this.id).subscribe(data=>{
-      this.form.patchValue({
-        nombre:data.nameCategory,
-        parent_id:data.parent_idCategory,
-      })
+    this.cS.listId(this.id).subscribe({
+      next: (data) => {
+        this.form.patchValue({
+          nombre:data.nameCategory,
+          parent_id:data.parent_idCategory,
+        })
+      },
+      error: () => { this.error = 'No se pudo cargar la categoría.'; },
     })
   }
   
