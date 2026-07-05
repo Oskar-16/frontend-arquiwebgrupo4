@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,7 +33,8 @@ export class Profilecomponent implements OnInit {
 
   constructor(
     private profileSrv: Profileservice,
-    private ratingSrv: Ratingservice
+    private ratingSrv: Ratingservice,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -86,8 +87,15 @@ export class Profilecomponent implements OnInit {
         this.editando.set(false);
         this.exito.set('Perfil actualizado.');
         this.error.set('');
+        // detectChanges forzado: el tick automático de zone.js puede abortar a mitad
+        // de camino por el NG0100 que dispara mat-tab-group (ver app.config.ts), y
+        // eso dejaba el mensaje sin pintar aunque el estado sí cambiaba.
+        this.cdr.detectChanges();
       },
-      error: () => this.error.set('Error al guardar el perfil.')
+      error: () => {
+        this.error.set('Error al guardar el perfil.');
+        this.cdr.detectChanges();
+      }
     });
   }
 
