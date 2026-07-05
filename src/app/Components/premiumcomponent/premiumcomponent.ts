@@ -21,9 +21,38 @@ export class Premiumcomponent {
 
   constructor(private premiumS: Premiumservice) {}
 
+  private validarPago(): string {
+    if (!this.pago.nombre.trim()) {
+      return 'Ingresa el nombre en la tarjeta.';
+    }
+    const numero = this.pago.tarjeta.replace(/\s/g, '');
+    if (!/^\d{13,19}$/.test(numero)) {
+      return 'Número de tarjeta inválido (13 a 19 dígitos).';
+    }
+    const venc = this.pago.vencimiento.trim();
+    const match = /^(\d{2})\/(\d{2})$/.exec(venc);
+    if (!match) {
+      return 'Vencimiento inválido (formato MM/AA).';
+    }
+    const mes = Number(match[1]);
+    const anio = 2000 + Number(match[2]);
+    if (mes < 1 || mes > 12) {
+      return 'Mes de vencimiento inválido.';
+    }
+    const finDeMes = new Date(anio, mes, 0);
+    if (finDeMes < new Date()) {
+      return 'La tarjeta está vencida.';
+    }
+    if (!/^\d{3,4}$/.test(this.pago.cvv.trim())) {
+      return 'CVV inválido (3 o 4 dígitos).';
+    }
+    return '';
+  }
+
   pagar(): void {
-    if (!this.pago.nombre.trim() || this.pago.tarjeta.replace(/\s/g, '').length < 12) {
-      this.error = 'Completa los datos de la tarjeta.';
+    const validacion = this.validarPago();
+    if (validacion) {
+      this.error = validacion;
       return;
     }
     this.error = '';

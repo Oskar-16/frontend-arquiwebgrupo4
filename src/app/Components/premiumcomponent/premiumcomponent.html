@@ -22,20 +22,20 @@
       <h2>Datos de pago</h2>
       <div class="field">
         <label>Nombre en la tarjeta</label>
-        <input [(ngModel)]="pago.nombre" placeholder="Como aparece en la tarjeta" />
+        <input [(ngModel)]="pago.nombre" placeholder="Como aparece en la tarjeta" autocomplete="cc-name" />
       </div>
       <div class="field">
         <label>Número de tarjeta</label>
-        <input [(ngModel)]="pago.tarjeta" placeholder="1234 5678 9012 3456" />
+        <input [(ngModel)]="pago.tarjeta" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" autocomplete="cc-number" />
       </div>
       <div class="fila">
         <div class="field">
           <label>Vencimiento</label>
-          <input [(ngModel)]="pago.vencimiento" placeholder="MM/AA" />
+          <input [(ngModel)]="pago.vencimiento" placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="cc-exp" />
         </div>
         <div class="field">
           <label>CVV</label>
-          <input [(ngModel)]="pago.cvv" placeholder="123" />
+          <input [(ngModel)]="pago.cvv" placeholder="123" maxlength="4" inputmode="numeric" autocomplete="cc-csc" />
         </div>
       </div>
 
