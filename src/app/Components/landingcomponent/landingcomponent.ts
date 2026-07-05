@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Chatbotcomponent } from '../chatbotcomponent/chatbotcomponent';
 
 /** Una categoría con su ahorro AMBIENTAL ILUSTRATIVO al intercambiar un objeto
  *  usado en lugar de comprar uno nuevo (promedios por categoría).
@@ -41,7 +42,7 @@ interface Integrante {
 
 @Component({
   selector: 'app-landingcomponent',
-  imports: [RouterLink],
+  imports: [RouterLink, Chatbotcomponent],
   templateUrl: './landingcomponent.html',
   styleUrl: './landingcomponent.css',
 })
