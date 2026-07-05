@@ -13,7 +13,6 @@ import { Landingcomponent } from './Components/landingcomponent/landingcomponent
 import { Truequecomponent } from './Components/truequecomponent/truequecomponent';
 import { Verificacioncomponent } from './Components/verificacioncomponent/verificacioncomponent';
 import { VerificacionListar } from './Components/verificacioncomponent/verificacion-listar/verificacion-listar';
-import { VerificacionInsertar } from './Components/verificacioncomponent/verificacion-insertar/verificacion-insertar';
 import { VerificacionActualizar } from './Components/verificacioncomponent/verificacion-actualizar/verificacion-actualizar';
 import { CategoryListar } from './Components/categorycomponent/category-listar/category-listar';
 import { CategoryInsertar } from './Components/categorycomponent/category-insertar/category-insertar';
@@ -165,10 +164,6 @@ export const routes: Routes = [
                     {
                         path: 'listar',
                         component: VerificacionListar
-                    },
-                    {
-                        path: 'nuevo',
-                        component: VerificacionInsertar
                     },
                     {
                         path: 'edits/:id',
