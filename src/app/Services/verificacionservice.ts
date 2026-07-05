@@ -24,9 +24,21 @@ export class Verificacionservice {
     return this.http.post(this.url, v);
   }
 
-  // DELETE /users/{id}
+  // DELETE /users/{id} -- OJO: falla (FK violation, mal traducido a 403 por Spring
+  // Security) si el usuario tiene items/trades/etc. En la práctica casi ningún usuario
+  // real está "limpio". Usar deshabilitar()/habilitar() en vez de esto para gestión real.
   eliminar(id: number) {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  }
+
+  // PUT /users/{id}/disable -- soft-delete real y seguro (no rompe FKs).
+  deshabilitar(id: number) {
+    return this.http.put(`${this.url}/${id}/disable`, {});
+  }
+
+  // PUT /users/{id}/enable
+  habilitar(id: number) {
+    return this.http.put(`${this.url}/${id}/enable`, {});
   }
 
   // GET /users/{id}

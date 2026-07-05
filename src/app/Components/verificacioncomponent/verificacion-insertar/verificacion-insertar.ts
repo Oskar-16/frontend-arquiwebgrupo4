@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Verificacion } from '../../../Models/verificacion';
 import { Verificacionservice } from '../../../Services/verificacionservice';
@@ -12,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-verificacion-insertar',
   imports: [
+    CommonModule,
     MatInputModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -25,6 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class VerificacionInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
   ver: Verificacion = new Verificacion();
+  enviando = false;
+  error = '';
   estados: { value: number; viewValue: string }[] = [
     { value: 1, viewValue: 'Pendiente' },
     { value: 2, viewValue: 'Verificado' },
@@ -50,9 +54,17 @@ export class VerificacionInsertar implements OnInit {
       this.ver.usernameUser = this.form.value.documento;
       this.ver.created_atUser = this.form.value.registro;
       this.ver.is_verifiedUser = this.form.value.estado === 2;
+      this.enviando = true;
+      this.error = '';
       this.vS.insert(this.ver).subscribe({
         next: () => {
           this.router.navigate(['/kyc/listar']);
+        },
+        error: (err) => {
+          this.enviando = false;
+          this.error = typeof err?.error === 'string'
+            ? err.error
+            : 'No se pudo registrar (falta contraseña: este formulario no crea cuentas completas).';
         },
       });
     }
