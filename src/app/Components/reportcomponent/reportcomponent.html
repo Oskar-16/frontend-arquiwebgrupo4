@@ -13,10 +13,14 @@
   } @else {
     <form class="form-reporte" (ngSubmit)="enviar()">
 
-      <mat-form-field appearance="outline">
-        <mat-label>ID del usuario a reportar</mat-label>
-        <input matInput type="number" [(ngModel)]="form.reportedUserId" name="userId" min="1" />
-      </mat-form-field>
+      @if (prellenado) {
+        <p class="prellenado-info"><mat-icon>info</mat-icon> Reportando al usuario #{{ form.reportedUserId }}</p>
+      } @else {
+        <mat-form-field appearance="outline">
+          <mat-label>ID del usuario a reportar</mat-label>
+          <input matInput type="number" [(ngModel)]="form.reportedUserId" name="userId" min="1" />
+        </mat-form-field>
+      }
 
       <mat-form-field appearance="outline">
         <mat-label>Motivo</mat-label>

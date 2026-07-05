@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -27,11 +28,12 @@ const RAZONES = [
   templateUrl: './reportcomponent.html',
   styleUrl: './reportcomponent.css',
 })
-export class Reportcomponent {
+export class Reportcomponent implements OnInit {
   razones = RAZONES;
   enviando = signal(false);
   exito = signal('');
   error = signal('');
+  prellenado = false;
 
   form: ReportRequest = {
     reportedUserId: 0,
@@ -39,7 +41,17 @@ export class Reportcomponent {
     description: '',
   };
 
-  constructor(private reportSrv: Reportservice) {}
+  constructor(private reportSrv: Reportservice, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    // Si venimos desde el chat de un trueque, ya sabemos a quién se reporta —
+    // sin esto, el usuario tendría que adivinar el ID numérico de la otra persona.
+    const userId = Number(this.route.snapshot.queryParamMap.get('userId'));
+    if (userId > 0) {
+      this.form.reportedUserId = userId;
+      this.prellenado = true;
+    }
+  }
 
   enviar(): void {
     if (!this.form.reportedUserId || !this.form.reason || !this.form.description.trim()) {
@@ -54,8 +66,8 @@ export class Reportcomponent {
         this.enviando.set(false);
         this.form = { reportedUserId: 0, reason: '', description: '' };
       },
-      error: () => {
-        this.error.set('Error al enviar el reporte.');
+      error: (err) => {
+        this.error.set(typeof err?.error === 'string' ? err.error : 'Error al enviar el reporte.');
         this.enviando.set(false);
       }
     });

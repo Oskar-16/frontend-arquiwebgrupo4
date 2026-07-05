@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { Chatservice } from '../../Services/chatservice';
 import { AuthService } from '../../Services/auth.service';
@@ -13,7 +14,7 @@ import { ChatResponse, MessageResponse, MeetingPointResponse } from '../../Model
 // HU11 - Chat interno del trueque (mensajes + punto de encuentro)
 @Component({
   selector: 'app-chatcomponent',
-  imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule, MatTooltipModule, RouterLink],
   templateUrl: './chatcomponent.html',
   styleUrl: './chatcomponent.css',
 })

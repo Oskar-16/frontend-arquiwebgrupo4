@@ -7,6 +7,16 @@
     <span class="avatar">{{ iniciales(otroUsuario) }}</span>
     <span class="nombre">{{ otroUsuario }}</span>
     <span class="estado-ok"><mat-icon>check_circle</mat-icon> Trueque aceptado</span>
+    <button
+      matIconButton
+      *ngIf="otroId"
+      [routerLink]="['/reportar']"
+      [queryParams]="{ userId: otroId }"
+      aria-label="Reportar usuario"
+      matTooltip="Reportar a {{ otroUsuario }}"
+    >
+      <mat-icon>flag</mat-icon>
+    </button>
   </div>
 
   <p class="error" *ngIf="error">{{ error }}</p>
