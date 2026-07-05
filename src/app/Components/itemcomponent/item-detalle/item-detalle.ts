@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Itemservice } from '../../../Services/itemservice';
 import { Tradeservice } from '../../../Services/tradeservice';
+import { AuthService } from '../../../Services/auth.service';
 import { ItemResponse } from '../../../Models/item-response';
 
 @Component({
@@ -25,6 +26,8 @@ export class ItemDetalle implements OnInit {
   private route = inject(ActivatedRoute);
   private itemSrv = inject(Itemservice);
   private tradeSrv = inject(Tradeservice);
+  private authSrv = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   cargando = signal(true);
   item = signal<ItemResponse | null>(null);
@@ -42,9 +45,6 @@ export class ItemDetalle implements OnInit {
       next: (it) => {
         this.item.set(it);
         this.cargando.set(false);
-        if (it.user?.idUser) {
-          this.itemSrv.listByUser(it.user.idUser).subscribe();
-        }
       },
       error: () => this.cargando.set(false),
     });
@@ -55,8 +55,14 @@ export class ItemDetalle implements OnInit {
     this.truequeMensaje.set('');
     this.truequeError.set('');
     this.proposerItemIds = [];
+    const miEmail = this.authSrv.obtenerEmail();
     this.itemSrv.listResponse().subscribe({
-      next: (items) => this.misItems.set(items),
+      next: (items) => {
+        this.misItems.set(
+          items.filter((i) => i.user?.emailUser === miEmail && i.statusItem === 1),
+        );
+        this.cdr.detectChanges();
+      },
     });
   }
 
@@ -91,8 +97,8 @@ export class ItemDetalle implements OnInit {
         this.enviandoTrueque.set(false);
         this.mostrarFormTrueque.set(false);
       },
-      error: () => {
-        this.truequeError.set('Error al enviar la propuesta.');
+      error: (err) => {
+        this.truequeError.set(typeof err?.error === 'string' ? err.error : 'Error al enviar la propuesta.');
         this.enviandoTrueque.set(false);
       }
     });

@@ -30,6 +30,7 @@ const CLASES: Record<string, string> = {
 export class Truequecomponent implements OnInit {
   recibidos: Trade[] = [];
   enviados: Trade[] = [];
+  error = '';
 
   constructor(private tradeS: Tradeservice, private router: Router) {}
 
@@ -67,14 +68,26 @@ export class Truequecomponent implements OnInit {
   }
 
   aceptar(t: Trade) {
-    this.tradeS.aceptar(t.idTrade).subscribe({ next: () => this.cargar() });
+    this.error = '';
+    this.tradeS.aceptar(t.idTrade).subscribe({
+      next: () => this.cargar(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo aceptar el trueque.'),
+    });
   }
 
   rechazar(t: Trade) {
-    this.tradeS.rechazar(t.idTrade).subscribe({ next: () => this.cargar() });
+    this.error = '';
+    this.tradeS.rechazar(t.idTrade).subscribe({
+      next: () => this.cargar(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo rechazar el trueque.'),
+    });
   }
 
   cancelar(t: Trade) {
-    this.tradeS.cancelar(t.idTrade).subscribe({ next: () => this.cargar() });
+    this.error = '';
+    this.tradeS.cancelar(t.idTrade).subscribe({
+      next: () => this.cargar(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo cancelar el trueque.'),
+    });
   }
 }

@@ -1,6 +1,8 @@
 <div class="trueques-container">
   <h1>Mis trueques</h1>
 
+  <p class="error-mensaje" *ngIf="error">{{ error }}</p>
+
   <mat-tab-group>
     <mat-tab label="Recibidos">
       <div class="lista-trueques">

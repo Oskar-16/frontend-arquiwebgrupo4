@@ -2,6 +2,8 @@
   <h1>Ofertas recibidas</h1>
   <p class="sub">Compara las propuestas por tu item y acepta la que más te convenga.</p>
 
+  <p class="error-mensaje" *ngIf="error">{{ error }}</p>
+
   <p class="vacio" *ngIf="cargando">Cargando ofertas…</p>
   <p class="vacio" *ngIf="!cargando && !ofertas.length">Todavía no hay propuestas por este item.</p>
 

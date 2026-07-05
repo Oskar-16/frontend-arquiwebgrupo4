@@ -17,6 +17,7 @@ export class Ofertascomponent implements OnInit {
   itemId = 0;
   ofertas: Trade[] = [];
   cargando = true;
+  error = '';
 
   constructor(private route: ActivatedRoute, private tradeS: Tradeservice) {}
 
@@ -51,10 +52,18 @@ export class Ofertascomponent implements OnInit {
   }
 
   aceptar(t: Trade): void {
-    this.tradeS.aceptar(t.idTrade).subscribe({ next: () => this.cargar() });
+    this.error = '';
+    this.tradeS.aceptar(t.idTrade).subscribe({
+      next: () => this.cargar(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo aceptar la oferta.'),
+    });
   }
 
   rechazar(t: Trade): void {
-    this.tradeS.rechazar(t.idTrade).subscribe({ next: () => this.cargar() });
+    this.error = '';
+    this.tradeS.rechazar(t.idTrade).subscribe({
+      next: () => this.cargar(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo rechazar la oferta.'),
+    });
   }
 }
