@@ -62,3 +62,10 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
+
+<mat-paginator
+  [length]="filtradas.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="cambiarPagina($event)">
+</mat-paginator>

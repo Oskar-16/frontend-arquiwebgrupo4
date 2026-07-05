@@ -56,3 +56,10 @@
     </table>
   </div>
 </div>
+
+<mat-paginator
+  [length]="filtradas.length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="cambiarPagina($event)">
+</mat-paginator>
