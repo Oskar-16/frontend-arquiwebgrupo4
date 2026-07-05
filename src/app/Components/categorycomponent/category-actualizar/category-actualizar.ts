@@ -1,7 +1,7 @@
 import { Category } from './../../../Models/category';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { Categoryservice } from '../../../Services/categoryservice';
   styleUrl: './category-actualizar.css',
 })
 export class CategoryActualizar implements OnInit {
-  form: FormGroup = new FormGroup({});
+  form: FormGroup;
   categorias: Category[] = [];
   enviando = false;
   error = '';
@@ -32,7 +32,13 @@ export class CategoryActualizar implements OnInit {
     private cS: Categoryservice,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+    private formBuilder: FormBuilder,
+  ) {
+    this.form = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      parent_id: ['', Validators.required],
+    });
+  }
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id']
@@ -50,7 +56,7 @@ export class CategoryActualizar implements OnInit {
     this.error = '';
     this.cS.update(this.id, categorias).subscribe({
       next: () => {
-        this.router.navigate(['/categories/actualizar'])
+        this.router.navigate(['/categories/listar'])
       },
       error: (err) => {
         this.enviando = false;

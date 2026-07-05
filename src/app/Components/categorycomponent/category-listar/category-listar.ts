@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -16,7 +16,8 @@ import { Categoryservice } from '../../../Services/categoryservice';
 export class CategoryListar implements OnInit{
   dataSource: MatTableDataSource<Category> = new MatTableDataSource();
   displayedColumns: string[] = ['c1','c2','c3','c4'];
-  constructor(private cS:Categoryservice){}
+  error = '';
+  constructor(private cS:Categoryservice, private cdr: ChangeDetectorRef){}
   ngOnInit(): void {
     this.cargarCategories();
   }
@@ -24,12 +25,15 @@ export class CategoryListar implements OnInit{
     this.cS.list().subscribe({
       next: (data) => {
         this.dataSource.data = data;
+        this.cdr.detectChanges();
       },
     });
   }
   eliminar(id: number) {
-    this.cS.eliminar(id).subscribe(() => {
-      this.cargarCategories();
+    this.error = '';
+    this.cS.eliminar(id).subscribe({
+      next: () => this.cargarCategories(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo eliminar la categoría.'),
     });
   }
 }

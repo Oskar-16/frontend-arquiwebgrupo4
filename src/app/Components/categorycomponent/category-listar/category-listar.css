@@ -5,6 +5,15 @@
   position: relative;
 }
 
+.error-mensaje {
+  color: #b3261e;
+  background: #fce8e6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0 0;
+  font-size: 14px;
+}
+
 .encabezado {
   display: flex;
   align-items: center;
