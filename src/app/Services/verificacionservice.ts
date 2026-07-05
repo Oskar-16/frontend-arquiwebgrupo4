@@ -33,7 +33,9 @@ export class Verificacionservice {
   listId(id: number) {
     return this.http.get<Verificacion>(`${this.url}/${id}`);
   }
-
+  eliminar(id: number){
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' })
+  }
   // KYC: PUT /users/{id}/verify -> marca al usuario como verificado.
   // (No hay PUT /users/{id} genérico; la acción real de KYC es "verify".)
   update(v: Verificacion) {
