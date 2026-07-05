@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Chatbotcomponent } from '../chatbotcomponent/chatbotcomponent';
 
 /** Una categoría con su ahorro AMBIENTAL ILUSTRATIVO al intercambiar un objeto
  *  usado en lugar de comprar uno nuevo (promedios por categoría).
@@ -41,7 +42,7 @@ interface Integrante {
 
 @Component({
   selector: 'app-landingcomponent',
-  imports: [RouterLink],
+  imports: [RouterLink, Chatbotcomponent],
   templateUrl: './landingcomponent.html',
   styleUrl: './landingcomponent.css',
 })
@@ -124,10 +125,10 @@ export class Landingcomponent {
   ];
 
   readonly equipo: Integrante[] = [
-    { nombre: 'Christian Bernabe Chacaliaza', rol: 'Backend', iniciales: 'CB' },
+    { nombre: 'Christian Bernabe Chacaliaza', rol: 'QA & Testing', iniciales: 'CB' },
     { nombre: 'Oskar Guerrero Preciado', rol: 'Frontend', iniciales: 'OG' },
     { nombre: 'Carlo Francesko Montesinos', rol: 'Full-stack', iniciales: 'CM' },
-    { nombre: 'Miguel Salas Guillen', rol: 'QA & Testing', iniciales: 'MS' },
+    { nombre: 'Miguel Salas Guillen', rol: 'Backend', iniciales: 'MS' },
     { nombre: 'David Torres Meneses', rol: 'UX / UI', iniciales: 'DT' },
   ];
 

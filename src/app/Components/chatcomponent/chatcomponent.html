@@ -1,0 +1,122 @@
+<div class="chat-page">
+  <!-- Cabecera del chat -->
+  <div class="chat-header">
+    <button matIconButton (click)="volver()" aria-label="Volver">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span class="avatar">{{ iniciales(otroUsuario) }}</span>
+    <span class="nombre">{{ otroUsuario }}</span>
+    <span class="estado-ok"><mat-icon>check_circle</mat-icon> Trueque aceptado</span>
+    <button
+      matIconButton
+      *ngIf="otroId"
+      [routerLink]="['/reportar']"
+      [queryParams]="{ userId: otroId }"
+      aria-label="Reportar usuario"
+      matTooltip="Reportar a {{ otroUsuario }}"
+    >
+      <mat-icon>flag</mat-icon>
+    </button>
+  </div>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <!-- Punto de encuentro -->
+  <div class="card punto" *ngIf="!error">
+    <ng-container *ngIf="!editandoPunto">
+      <div class="punto-info">
+        <mat-icon class="ico-place">place</mat-icon>
+        <div class="col">
+          <span class="titulo">Punto de encuentro</span>
+          <span class="muted" *ngIf="punto">{{ punto.address }}</span>
+          <span class="muted" *ngIf="!punto">Aún no acordado — coordínalo por el chat.</span>
+        </div>
+      </div>
+      <div class="punto-fecha">
+        <span class="muted" *ngIf="punto"><mat-icon>schedule</mat-icon> {{ punto.scheduledAt | date: 'EEE d MMM · h:mm a' }}</span>
+        <button matButton (click)="editarPunto()">{{ punto ? 'Editar' : 'Fijar' }}</button>
+      </div>
+    </ng-container>
+
+    <div class="punto-form" *ngIf="editandoPunto">
+      <div class="field">
+        <label>Lugar</label>
+        <input [(ngModel)]="formPunto.address" placeholder="Ej: Biblioteca UPC Monterrico — Entrada principal" />
+      </div>
+      <div class="field">
+        <label>Fecha y hora</label>
+        <input type="datetime-local" [(ngModel)]="formPunto.scheduledAt" />
+      </div>
+      <p class="error-mensaje" *ngIf="errorPunto">{{ errorPunto }}</p>
+      <div class="punto-form-acciones">
+        <button matButton (click)="cancelarEdicion()" [disabled]="guardandoPunto">Cancelar</button>
+        <button matButton="elevated" (click)="guardarPunto()" [disabled]="guardandoPunto">
+          <mat-icon>check</mat-icon> {{ guardandoPunto ? 'Guardando…' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hilo de mensajes -->
+  <div class="card thread-card" *ngIf="!error">
+    <div class="chat-thread" #hilo>
+      <p class="muted centro" *ngIf="cargando">Cargando mensajes…</p>
+      <p class="muted centro" *ngIf="!cargando && !mensajes.length">
+        Aún no hay mensajes. ¡Escribe el primero para coordinar el trueque!
+      </p>
+
+      <div
+        *ngFor="let m of mensajes"
+        class="bubble"
+        [class.out]="esMio(m)"
+        [class.in]="!esMio(m)"
+      >
+        {{ m.content }}
+        <span class="time">{{ m.sentAt | date: 'h:mm a' }}</span>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <div class="field grow">
+        <input
+          [(ngModel)]="nuevoMensaje"
+          (keyup.enter)="enviar()"
+          placeholder="Escribe un mensaje…"
+          [disabled]="!chat"
+        />
+      </div>
+      <button
+        matIconButton
+        class="btn-enviar"
+        (click)="enviar()"
+        [disabled]="!chat || !nuevoMensaje.trim()"
+        aria-label="Enviar"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Calificación al otro usuario -->
+  <div class="card rating" *ngIf="!error && otroId && !calificado">
+    <div class="rating-cabecera">
+      <mat-icon class="ico-star">star</mat-icon>
+      <span>¿Concretaron el trueque? Califica a <b>{{ otroUsuario }}</b>:</span>
+    </div>
+    <div class="estrellas">
+      <mat-icon *ngFor="let n of [1,2,3,4,5]" (click)="estrella(n)" [class.activa]="n <= puntaje">
+        {{ n <= puntaje ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+    <div class="field">
+      <label>Comentario (opcional)</label>
+      <input [(ngModel)]="comentario" placeholder="¿Cómo fue el intercambio?" />
+    </div>
+    <p class="error-mensaje" *ngIf="errorCalificacion">{{ errorCalificacion }}</p>
+    <button matButton="elevated" (click)="calificar()" [disabled]="puntaje === 0">Calificar</button>
+  </div>
+
+  <div class="card rating-ok" *ngIf="calificado">
+    <mat-icon>check_circle</mat-icon> ¡Gracias por calificar!
+  </div>
+</div>

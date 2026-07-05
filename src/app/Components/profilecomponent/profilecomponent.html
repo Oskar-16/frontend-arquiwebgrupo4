@@ -1,0 +1,95 @@
+<div class="perfil-page">
+  <h1 class="titulo">Mi Perfil</h1>
+
+  @if (cargando()) {
+    <p>Cargando...</p>
+  } @else {
+    <mat-tab-group>
+
+      <!-- TAB: Datos del perfil -->
+      <mat-tab label="Datos">
+        <div class="perfil-card">
+          <div class="avatar-grande">{{ iniciales() }}</div>
+
+          @if (!editando()) {
+            @if (perfil()) {
+              <div class="campo"><span class="label">Nombre</span><span>{{ perfil()!.firstName }} {{ perfil()!.lastName }}</span></div>
+              <div class="campo"><span class="label">Teléfono</span><span>{{ perfil()!.phone || '—' }}</span></div>
+              <div class="campo"><span class="label">Bio</span><span>{{ perfil()!.bio || '—' }}</span></div>
+              <div class="campo"><span class="label">Fecha de nacimiento</span><span>{{ perfil()!.birthDate || '—' }}</span></div>
+              <div class="campo"><span class="label">Avatar URL</span><span>{{ perfil()!.avatarUrl || '—' }}</span></div>
+            } @else {
+              <p class="vacio">No tienes perfil aún. Crea uno aquí.</p>
+            }
+            <button mat-flat-button color="primary" (click)="iniciarEdicion()">
+              <mat-icon>edit</mat-icon> {{ perfil() ? 'Editar perfil' : 'Crear perfil' }}
+            </button>
+          } @else {
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput [(ngModel)]="form.firstName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido</mat-label>
+              <input matInput [(ngModel)]="form.lastName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono</mat-label>
+              <input matInput [(ngModel)]="form.phone" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Bio</mat-label>
+              <textarea matInput [(ngModel)]="form.bio" rows="3"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput type="date" [(ngModel)]="form.birthDate" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Avatar URL</mat-label>
+              <input matInput [(ngModel)]="form.avatarUrl" />
+            </mat-form-field>
+
+            @if (error()) { <p class="error">{{ error() }}</p> }
+            @if (exito()) { <p class="exito">{{ exito() }}</p> }
+
+            <div class="acciones">
+              <button mat-flat-button color="primary" (click)="guardar()">Guardar</button>
+              <button mat-stroked-button (click)="cancelarEdicion()">Cancelar</button>
+            </div>
+          }
+
+          @if (exito() && !editando()) {
+            <p class="exito">{{ exito() }}</p>
+          }
+        </div>
+      </mat-tab>
+
+      <!-- TAB: Ratings recibidos -->
+      <mat-tab label="Calificaciones ({{ ratings().length }})">
+        <div class="ratings-section">
+          <div class="rating-promedio">
+            <span class="promedio-numero">{{ promedioRating() }}</span>
+            <span class="promedio-label">promedio de {{ ratings().length }} calificaciones</span>
+          </div>
+
+          @if (ratings().length === 0) {
+            <p class="vacio">Aún no tienes calificaciones.</p>
+          } @else {
+            @for (r of ratings(); track r.idRating) {
+              <div class="rating-card">
+                <div class="rating-header">
+                  <span class="estrellas">{{ estrellas(r.score) }}</span>
+                  <span class="fecha">{{ r.createdAt | date:'dd/MM/yyyy' }}</span>
+                </div>
+                <p class="comentario">{{ r.comment }}</p>
+                <span class="rater">por {{ r.rater?.usernameUser || 'Usuario' }}</span>
+              </div>
+            }
+          }
+        </div>
+      </mat-tab>
+
+    </mat-tab-group>
+  }
+</div>

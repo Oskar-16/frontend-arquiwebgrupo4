@@ -11,6 +11,15 @@
   justify-content: space-between;
 }
 
+.error-mensaje {
+  color: #b3261e;
+  background: #fce8e6;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 12px 0 0;
+  font-size: 14px;
+}
+
 .encabezado h1 {
   margin: 0;
   font-size: 28px;

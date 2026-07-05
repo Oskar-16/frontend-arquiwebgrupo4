@@ -1,6 +1,8 @@
 <div class="trueques-container">
   <h1>Mis trueques</h1>
 
+  <p class="error-mensaje" *ngIf="error">{{ error }}</p>
+
   <mat-tab-group>
     <mat-tab label="Recibidos">
       <div class="lista-trueques">
@@ -38,7 +40,7 @@
           </div>
 
           <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
-            <button matButton="outlined" [disabled]="!t.chatId">
+            <button matButton="outlined" [disabled]="!t.chatId" (click)="abrirChat(t, t.proposer)">
               <mat-icon>chat</mat-icon> Abrir chat
             </button>
           </div>
@@ -81,7 +83,7 @@
           </div>
 
           <div class="acciones-trueque" *ngIf="t.statusTrade === 'ACCEPTED'">
-            <button matButton="outlined" [disabled]="!t.chatId">
+            <button matButton="outlined" [disabled]="!t.chatId" (click)="abrirChat(t, t.receiver)">
               <mat-icon>chat</mat-icon> Abrir chat
             </button>
           </div>

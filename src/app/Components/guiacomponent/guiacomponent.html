@@ -1,0 +1,35 @@
+<div class="guia-container">
+  <header class="guia-header">
+    <mat-icon class="header-icono">menu_book</mat-icon>
+    <div>
+      <h1>Cómo funciona TuTrade</h1>
+      <p class="subtitulo">Intercambiar lo que no usas es fácil. Sigue estos pasos para empezar.</p>
+    </div>
+  </header>
+
+  <ol class="pasos">
+    @for (paso of pasos; track paso.titulo) {
+      <li class="paso">
+        <div class="paso-icono">
+          <mat-icon>{{ paso.icono }}</mat-icon>
+        </div>
+        <div class="paso-cuerpo">
+          <h2>{{ paso.titulo }}</h2>
+          <p>{{ paso.texto }}</p>
+          <a class="paso-cta" [routerLink]="paso.enlace">
+            {{ paso.cta }}
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </li>
+    }
+  </ol>
+
+  <div class="guia-tip">
+    <mat-icon>verified_user</mat-icon>
+    <p>
+      <strong>Consejo:</strong> verifica tu identidad para generar más confianza en la comunidad.
+      Una cuenta verificada recibe más propuestas de trueque.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="admin-premium">
+  <h1>Validación de premium</h1>
+  <p class="sub">Activa o quita el premium de los usuarios.</p>
+  <p class="error-mensaje" *ngIf="error">{{ error }}</p>
+
+  <table class="tabla">
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Correo</th>
+        <th>Premium</th>
+        <th class="der">Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of usuarios">
+        <td>{{ u.usernameUser }}</td>
+        <td>{{ u.emailUser }}</td>
+        <td>
+          <span class="chip" [class.on]="u.is_premiumUser">
+            {{ u.is_premiumUser ? 'Premium' : 'Gratuito' }}
+          </span>
+        </td>
+        <td class="der">
+          <button matButton="outlined" (click)="toggle(u)">
+            {{ u.is_premiumUser ? 'Quitar premium' : 'Activar premium' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="vacio" *ngIf="cargando">Cargando usuarios…</p>
+  <p class="vacio" *ngIf="!cargando && !usuarios.length">No hay usuarios para mostrar.</p>
+</div>

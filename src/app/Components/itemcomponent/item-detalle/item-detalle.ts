@@ -1,23 +1,43 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Itemservice } from '../../../Services/itemservice';
+import { Tradeservice } from '../../../Services/tradeservice';
+import { AuthService } from '../../../Services/auth.service';
 import { ItemResponse } from '../../../Models/item-response';
 
 @Component({
   selector: 'app-item-detalle',
-  imports: [RouterLink, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [
+    RouterLink, CommonModule, FormsModule,
+    MatButtonModule, MatIconModule, MatProgressSpinnerModule,
+    MatFormFieldModule, MatInputModule
+  ],
   templateUrl: './item-detalle.html',
   styleUrl: './item-detalle.css',
 })
 export class ItemDetalle implements OnInit {
   private route = inject(ActivatedRoute);
   private itemSrv = inject(Itemservice);
+  private tradeSrv = inject(Tradeservice);
+  private authSrv = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   cargando = signal(true);
   item = signal<ItemResponse | null>(null);
+
+  misItems = signal<ItemResponse[]>([]);
+  mostrarFormTrueque = signal(false);
+  proposerItemIds: number[] = [];
+  enviandoTrueque = signal(false);
+  truequeMensaje = signal('');
+  truequeError = signal('');
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -27,6 +47,60 @@ export class ItemDetalle implements OnInit {
         this.cargando.set(false);
       },
       error: () => this.cargando.set(false),
+    });
+  }
+
+  abrirFormTrueque(): void {
+    this.mostrarFormTrueque.set(true);
+    this.truequeMensaje.set('');
+    this.truequeError.set('');
+    this.proposerItemIds = [];
+    const miEmail = this.authSrv.obtenerEmail();
+    this.itemSrv.listResponse().subscribe({
+      next: (items) => {
+        this.misItems.set(
+          items.filter((i) => i.user?.emailUser === miEmail && i.statusItem === 1),
+        );
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  cerrarFormTrueque(): void {
+    this.mostrarFormTrueque.set(false);
+  }
+
+  toggleProposerItem(id: number): void {
+    const idx = this.proposerItemIds.indexOf(id);
+    if (idx >= 0) this.proposerItemIds.splice(idx, 1);
+    else this.proposerItemIds.push(id);
+  }
+
+  seleccionado(id: number): boolean {
+    return this.proposerItemIds.includes(id);
+  }
+
+  proponerTrueque(): void {
+    const it = this.item();
+    if (!it?.user?.idUser || !this.proposerItemIds.length) {
+      this.truequeError.set('Selecciona al menos un item tuyo para ofrecer.');
+      return;
+    }
+    this.enviandoTrueque.set(true);
+    this.tradeSrv.crear({
+      receiverId: it.user.idUser,
+      proposerItemIds: this.proposerItemIds,
+      receiverItemIds: [it.idItem],
+    }).subscribe({
+      next: () => {
+        this.truequeMensaje.set('Propuesta enviada correctamente.');
+        this.enviandoTrueque.set(false);
+        this.mostrarFormTrueque.set(false);
+      },
+      error: (err) => {
+        this.truequeError.set(typeof err?.error === 'string' ? err.error : 'Error al enviar la propuesta.');
+        this.enviandoTrueque.set(false);
+      }
     });
   }
 

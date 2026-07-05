@@ -50,7 +50,7 @@ export class VerificacionInsertar implements OnInit {
       this.ver.usernameUser = this.form.value.documento;
       this.ver.created_atUser = this.form.value.registro;
       this.ver.is_verifiedUser = this.form.value.estado === 2;
-      this.vS.insert(this.ver).subscribe({
+      this.vS.update(this.ver).subscribe({
         next: () => {
           this.router.navigate(['/kyc/listar']);
         },

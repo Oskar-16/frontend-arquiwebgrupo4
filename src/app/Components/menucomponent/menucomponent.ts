@@ -3,13 +3,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../Services/auth.service';
 import { SearchService } from '../../Services/search.service';
 
 @Component({
   selector: 'app-menucomponent',
-  imports: [MatIconModule,MatButtonModule,MatToolbarModule,MatMenuModule,RouterLink,RouterLinkActive],
+  imports: [MatIconModule,MatButtonModule,MatToolbarModule,MatMenuModule,MatTooltipModule,RouterLink,RouterLinkActive],
   templateUrl: './menucomponent.html',
   styleUrl: './menucomponent.css',
 })
@@ -22,6 +23,10 @@ export class Menucomponent {
 
   buscar(evento: Event): void {
     this.searchService.set((evento.target as HTMLInputElement).value);
+  }
+
+  esAdmin(): boolean {
+    return this.authService.esAdmin();
   }
 
   cerrarSesion(): void {

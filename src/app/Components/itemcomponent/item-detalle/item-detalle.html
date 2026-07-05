@@ -44,10 +44,36 @@
         </div>
 
         <div class="acciones">
-          <button matButton="filled" disabled title="Disponible cuando esté listo el módulo de Trueques">
-            <mat-icon>swap_horiz</mat-icon> Proponer trueque
-          </button>
-          <span class="nota">El módulo de Trueques está en construcción (Paso 2).</span>
+          @if (truequeMensaje()) {
+            <p class="exito-trade">{{ truequeMensaje() }}</p>
+          } @else if (!mostrarFormTrueque()) {
+            <button mat-flat-button color="primary" (click)="abrirFormTrueque()">
+              <mat-icon>swap_horiz</mat-icon> Proponer trueque
+            </button>
+          } @else {
+            <div class="form-trueque">
+              <h3>Selecciona tus items a ofrecer</h3>
+              @if (misItems().length === 0) {
+                <p>Cargando tus items...</p>
+              } @else {
+                <div class="items-grid">
+                  @for (mi of misItems(); track mi.idItem) {
+                    <div class="item-chip" [class.seleccionado]="seleccionado(mi.idItem)"
+                         (click)="toggleProposerItem(mi.idItem)">
+                      {{ mi.titleItem }}
+                    </div>
+                  }
+                </div>
+              }
+              @if (truequeError()) { <p class="error-trade">{{ truequeError() }}</p> }
+              <div class="acciones-trade">
+                <button mat-flat-button color="primary" (click)="proponerTrueque()" [disabled]="enviandoTrueque()">
+                  {{ enviandoTrueque() ? 'Enviando...' : 'Enviar propuesta' }}
+                </button>
+                <button mat-stroked-button (click)="cerrarFormTrueque()">Cancelar</button>
+              </div>
+            </div>
+          }
         </div>
       </div>
     </div>

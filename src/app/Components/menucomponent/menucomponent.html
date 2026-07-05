@@ -24,17 +24,23 @@
       </mat-menu>
 
       <a matButton routerLink="/trueques" routerLinkActive="activo">Trueques</a>
-      <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
-      <button matButton [matMenuTriggerFor]="menuCategories">categorias</button>
-      
-      <mat-menu #menuCategories="matMenu">
-        <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
-        <a mat-menu-item routerLink="/categories/insertar">Registrar Categoria</a>
-      </mat-menu>
+      <a matButton routerLink="/impacto" routerLinkActive="activo">Impacto</a>
+      @if (esAdmin()) {
+        <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
+        <a matButton routerLink="/admin/premium" routerLinkActive="activo">Usuarios</a>
+        <button matButton [matMenuTriggerFor]="menuCategories">Categorias</button>
+        <mat-menu #menuCategories="matMenu">
+          <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>
+          <a mat-menu-item routerLink="/categories/insertar">Registrar Categoria</a>
+        </mat-menu>
+      }
     </nav>
 
     <!-- Acciones -->
     <div class="acciones">
+      <a mat-icon-button routerLink="/guia" aria-label="Guía de uso" matTooltip="Cómo funciona">
+        <mat-icon>help_outline</mat-icon>
+      </a>
       <button mat-icon-button aria-label="Notificaciones">
         <mat-icon>notifications</mat-icon>
       </button>
@@ -43,6 +49,18 @@
         <span class="avatar-iniciales">U</span>
       </button>
       <mat-menu #menuUsuario="matMenu">
+          <a mat-menu-item routerLink="/perfil">
+          <mat-icon>person</mat-icon>
+          <span>Mi perfil</span>
+        </a>
+        <a mat-menu-item routerLink="/premium">
+          <mat-icon>workspace_premium</mat-icon>
+          <span>Hazte Premium</span>
+        </a>
+        <a mat-menu-item routerLink="/reportar">
+          <mat-icon>flag</mat-icon>
+          <span>Reportar usuario</span>
+        </a>
         <button mat-menu-item (click)="cerrarSesion()">
           <mat-icon>logout</mat-icon>
           <span>Cerrar sesión</span>

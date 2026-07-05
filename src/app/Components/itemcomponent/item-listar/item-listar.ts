@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Item } from '../../../Models/item-request';
 import { Itemservice } from '../../../Services/itemservice';
 import { AuthService } from '../../../Services/auth.service';
+import { Userservice } from '../../../Services/userservice';
 
 const ICONOS_CATEGORIA: Record<string, string> = {
   tecnología: 'devices',
@@ -36,11 +37,25 @@ export class ItemListar implements OnInit {
   dataSource: MatTableDataSource<Item> = new MatTableDataSource();
   displayedColumns: string[] = ['item', 'categoria', 'estado', 'acciones'];
   limitePlan = LIMITE_PLAN_GRATUITO;
+  error = '';
+  esPremium = false;
 
-  constructor(private iS: Itemservice, private authS: AuthService) {}
+  constructor(
+    private iS: Itemservice,
+    private authS: AuthService,
+    private userS: Userservice,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.cargarItems();
+    this.userS.misDatos().subscribe({
+      next: (u) => {
+        this.esPremium = !!u.is_premiumUser;
+        this.cdr.detectChanges();
+      },
+      error: () => {}, // si falla, se asume plan gratuito (comportamiento previo)
+    });
   }
 
   cargarItems() {
@@ -50,6 +65,7 @@ export class ItemListar implements OnInit {
         this.dataSource.data = email
           ? data.filter((i) => i.user?.emailUser === email)
           : data;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -68,8 +84,10 @@ export class ItemListar implements OnInit {
   }
 
   eliminar(id: number) {
-    this.iS.eliminar(id).subscribe(() => {
-      this.cargarItems();
+    this.error = '';
+    this.iS.eliminar(id).subscribe({
+      next: () => this.cargarItems(),
+      error: (err) => (this.error = typeof err?.error === 'string' ? err.error : 'No se pudo eliminar el ítem.'),
     });
   }
 }

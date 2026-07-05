@@ -1,0 +1,45 @@
+<button
+  type="button"
+  class="burbuja"
+  [class.burbuja--abierta]="abierto()"
+  (click)="alternar()"
+  [attr.aria-label]="abierto() ? 'Cerrar chat' : 'Abrir chat de ayuda'"
+>
+  <i class="material-symbols-outlined">{{ abierto() ? 'close' : 'chat' }}</i>
+</button>
+
+@if (abierto()) {
+  <div class="panel" role="dialog" aria-label="Asistente Tu Trade">
+    <header class="panel__head">
+      <i class="material-symbols-outlined">eco</i>
+      <span>Asistente Tu Trade</span>
+    </header>
+
+    <div class="panel__body">
+      @for (m of mensajes(); track $index) {
+        <div class="burbuja-msg" [class.burbuja-msg--user]="m.autor === 'user'">
+          {{ m.texto }}
+        </div>
+      }
+      @if (cargando()) {
+        <div class="burbuja-msg">
+          <span class="typing"><span></span><span></span><span></span></span>
+        </div>
+      }
+      <div #scrollAnchor></div>
+    </div>
+
+    <form class="panel__form" (submit)="$event.preventDefault(); enviar()">
+      <input
+        type="text"
+        placeholder="Escribe tu pregunta..."
+        [(ngModel)]="texto"
+        name="mensaje"
+        autocomplete="off"
+      />
+      <button type="submit" [disabled]="cargando()" aria-label="Enviar">
+        <i class="material-symbols-outlined">send</i>
+      </button>
+    </form>
+  </div>
+}

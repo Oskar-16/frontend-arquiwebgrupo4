@@ -1,57 +1,35 @@
 <div class="container">
-    <div style="text-align: center; margin: 3%">
-        <h2>Actualizar Verificaciones</h2>
+  <div style="text-align: center; margin: 3%">
+    <h2>Verificación KYC</h2>
+  </div>
+
+  @if (cargando()) {
+    <p style="text-align: center">Cargando…</p>
+  } @else if (usuario(); as u) {
+    <div style="max-width: 480px; margin: 0 auto">
+      <p><strong>Usuario:</strong> {{ u.idUser }}</p>
+      <p><strong>Correo:</strong> {{ u.emailUser }}</p>
+      <p><strong>Nombre de usuario:</strong> {{ u.usernameUser }}</p>
+      <p><strong>Registro:</strong> {{ u.created_atUser }}</p>
+      <p>
+        <strong>Estado KYC:</strong>
+        {{ u.is_verifiedUser ? 'Verificado' : 'Pendiente' }}
+      </p>
+
+      <p class="error-publicar" *ngIf="error()">{{ error() }}</p>
+
+      @if (!u.is_verifiedUser) {
+        <button matButton="elevated" [disabled]="actualizando()" (click)="verificar()">
+          <mat-icon>check</mat-icon>
+          Marcar como verificado
+        </button>
+      } @else {
+        <p><em>Este usuario ya está verificado. No es posible revertir la verificación KYC.</em></p>
+      }
+
+      <div style="margin-top: 16px">
+        <button matButton routerLink="/kyc/listar">Volver</button>
+      </div>
     </div>
-    <div style="text-align: center">
-        <form [formGroup]="form" (submit)="aceptar()">
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Usuario</mat-label>
-                <input matInput formControlName="id" readonly="true"/>
-            </mat-form-field>
-            <br />
-
-
-            <mat-form-field class="example-full-width">
-                <mat-label>Correo</mat-label>
-                <input matInput placeholder="Mario" formControlName="correo" />
-                <mat-error>
-                    @if (form.get('correo')?.hasError('required')) {
-                    Ingrese el correo!!
-                    }
-                </mat-error>
-            </mat-form-field>
-            <br />
-            <mat-form-field class="example-full-width">
-                <mat-label>Documento</mat-label>
-                <input matInput placeholder="Vargas Llosa" formControlName="documento" />
-            </mat-form-field>
-            <br />
-            <mat-form-field>
-                <mat-label>Registro</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="registro" />
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <br />
-            <mat-form-field>
-                <mat-label>Estado</mat-label>
-                <mat-select formControlName="estado">
-                    @for (food of estados; track food) {
-                    <mat-option [value]="food.value">{{ food.viewValue }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-            <br />
-
-            <mat-form-field>
-                <mat-label>Observacion</mat-label>
-                <textarea matInput formControlName="observacion"></textarea>
-            </mat-form-field>
-            <div>
-                <button matButton="elevated">Actualizar</button>
-            </div>
-        </form>
-    </div>
+  }
 </div>

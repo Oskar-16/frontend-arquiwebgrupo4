@@ -32,22 +32,32 @@ const CONDICIONES = [
   
 })
 export class ItemActualizar implements OnInit {
-  form: FormGroup = new FormGroup({});
+  form: FormGroup;
   categorias: Category[] = [];
   condiciones = CONDICIONES;
   enviando = false;
   error = '';
-  id: number = 0//
+  id: number = 0;
+  private statusActual = 1;
+
   constructor(
     private iS: Itemservice,
     private cS: Categoryservice,
     private router: Router,
     private route: ActivatedRoute,
-  ) {}
+    private formBuilder: FormBuilder,
+  ) {
+    this.form = this.formBuilder.group({
+      titulo: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      condicion: ['', Validators.required],
+      categoria: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id']  
+      this.id = params['id']
       this.init()
     })
     this.cS.list().subscribe({ next: (data) => (this.categorias = data) });
@@ -59,14 +69,14 @@ export class ItemActualizar implements OnInit {
     item.titleItem = this.form.value.titulo;
     item.descriptionItem = this.form.value.descripcion;
     item.conditionItem = Number(this.form.value.condicion);
-    item.statusItem = this.form.value.status;
+    item.statusItem = this.statusActual;
     item.categoryId = Number(this.form.value.categoria);
 
     this.enviando = true;
     this.error = '';
     this.iS.update(this.id,item).subscribe({
       next: () => {
-        this.router.navigate(['/items/actualizaritem'])
+        this.router.navigate(['/items/listaritem'])
       },
       error: (err) => {
         this.enviando = false;
@@ -75,15 +85,17 @@ export class ItemActualizar implements OnInit {
     });
   }
   init(){
-    this.iS.listId(this.id).subscribe(data=>{
-      this.form.patchValue({
-        titulo:data.titleItem,
-        descripcion:data.descriptionItem,
-        condicion:data.conditionItem ,
-        status:data.statusItem,
-        categoria:data.categoryId,
-
-      })
+    this.iS.listId(this.id).subscribe({
+      next: (data) => {
+        this.statusActual = data.statusItem;
+        this.form.patchValue({
+          titulo:data.titleItem,
+          descripcion:data.descriptionItem,
+          condicion:data.conditionItem,
+          categoria:data.categoryId,
+        })
+      },
+      error: () => { this.error = 'No se pudo cargar el ítem.'; },
     })
   }
 }

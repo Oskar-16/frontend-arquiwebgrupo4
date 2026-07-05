@@ -19,21 +19,23 @@ export class Verificacionservice {
     return this.http.get<Verificacion[]>(this.url);
   }
 
-  // POST /users -> crea usuario (el backend espera la entidad User)
-  insert(v: Verificacion) {
-    return this.http.post(this.url, v);
+  // PUT /users/{id}/disable -- soft-delete real y seguro (no rompe FKs).
+  deshabilitar(id: number) {
+    return this.http.put(`${this.url}/${id}/disable`, {});
   }
 
-  // DELETE /users/{id}
-  eliminar(id: number) {
-    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
+  // PUT /users/{id}/enable
+  habilitar(id: number) {
+    return this.http.put(`${this.url}/${id}/enable`, {});
   }
 
   // GET /users/{id}
   listId(id: number) {
     return this.http.get<Verificacion>(`${this.url}/${id}`);
   }
-
+  eliminar(id: number){
+    return this.http.delete(`${this.url}/${id}`, { responseType: 'text' })
+  }
   // KYC: PUT /users/{id}/verify -> marca al usuario como verificado.
   // (No hay PUT /users/{id} genérico; la acción real de KYC es "verify".)
   update(v: Verificacion) {
