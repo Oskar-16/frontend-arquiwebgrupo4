@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Item } from '../../../Models/item-request';
 import { Itemservice } from '../../../Services/itemservice';
 import { AuthService } from '../../../Services/auth.service';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 const ICONOS_CATEGORIA: Record<string, string> = {
   tecnología: 'devices',
@@ -28,7 +29,7 @@ const LIMITE_PLAN_GRATUITO = 5;
 
 @Component({
   selector: 'app-item-listar',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterLink, MatPaginatorModule],
   templateUrl: './item-listar.html',
   styleUrl: './item-listar.css',
 })
@@ -36,6 +37,15 @@ export class ItemListar implements OnInit {
   dataSource: MatTableDataSource<Item> = new MatTableDataSource();
   displayedColumns: string[] = ['item', 'categoria', 'estado', 'acciones'];
   limitePlan = LIMITE_PLAN_GRATUITO;
+
+  todas: Item[] = [];
+  filtradas: Item[] = [];
+  paginadas: Item[] = [];
+
+  filtroFecha: string = '';
+  pageSize = 5;
+  pageSizeOptions = [5, 10, 15];
+  pageIndex = 0;
 
   constructor(private iS: Itemservice, private authS: AuthService) {}
 
@@ -50,8 +60,27 @@ export class ItemListar implements OnInit {
         this.dataSource.data = email
           ? data.filter((i) => i.user?.emailUser === email)
           : data;
+          this.aplicarFiltro();
       },
     });
+  }
+  aplicarFiltro(): void {
+    this.filtradas = this.filtroFecha
+      ? this.todas.filter(v => v.titleItem === this.filtroFecha)
+      : this.todas;
+    this.pageIndex = 0;
+    this.actualizarPagina();
+  }
+
+  actualizarPagina(): void {
+    const inicio = this.pageIndex * this.pageSize;
+    this.paginadas = this.filtradas.slice(inicio, inicio + this.pageSize);
+  }
+
+  cambiarPagina(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.actualizarPagina();
   }
 
   get itemsActivos(): number {
