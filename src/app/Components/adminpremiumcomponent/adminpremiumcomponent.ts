@@ -14,6 +14,7 @@ import { Userservice, Usuario } from '../../Services/userservice';
 export class Adminpremiumcomponent implements OnInit {
   usuarios: Usuario[] = [];
   error = '';
+  cargando = true;
 
   constructor(private userS: Userservice, private cdr: ChangeDetectorRef) {}
 
@@ -22,17 +23,16 @@ export class Adminpremiumcomponent implements OnInit {
   }
 
   cargar(): void {
+    this.cargando = true;
     this.userS.listar().subscribe({
       next: (data) => {
         this.usuarios = data ?? [];
-        // detectChanges forzado: un NG0100 disparado en otro lado de la app (ver
-        // app.config.ts) puede abortar el tick automático a mitad de camino y dejar
-        // la tabla sin pintar aunque los datos ya llegaron. Un segundo click (que
-        // abre un tick nuevo y limpio) "arreglaba" esto, pero no debería depender de eso.
+        this.cargando = false;
         this.cdr.detectChanges();
       },
       error: () => {
         this.error = 'No se pudo cargar la lista de usuarios.';
+        this.cargando = false;
         this.cdr.detectChanges();
       },
     });

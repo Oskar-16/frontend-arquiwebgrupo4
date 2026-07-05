@@ -30,5 +30,6 @@
     </tbody>
   </table>
 
-  <p class="vacio" *ngIf="!usuarios.length">No hay usuarios para mostrar.</p>
+  <p class="vacio" *ngIf="cargando">Cargando usuarios…</p>
+  <p class="vacio" *ngIf="!cargando && !usuarios.length">No hay usuarios para mostrar.</p>
 </div>
