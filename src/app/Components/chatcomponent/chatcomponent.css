@@ -127,6 +127,15 @@
   margin-top: 12px;
 }
 
+.error-mensaje {
+  color: #b3261e;
+  background: #fce8e6;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+
 /* ---- campos ---- */
 .field {
   position: relative;

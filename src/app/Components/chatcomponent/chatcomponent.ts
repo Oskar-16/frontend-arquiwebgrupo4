@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,11 +34,14 @@ export class Chatcomponent implements OnInit {
   // edición del punto de encuentro
   editandoPunto = false;
   formPunto = { address: '', scheduledAt: '' };
+  errorPunto = '';
+  guardandoPunto = false;
 
   // calificación al otro usuario
   puntaje = 0;
   comentario = '';
   calificado = false;
+  errorCalificacion = '';
 
   private miEmail = '';
   private esNavegador: boolean;
@@ -49,6 +52,7 @@ export class Chatcomponent implements OnInit {
     private chatS: Chatservice,
     private auth: AuthService,
     private ratingS: Ratingservice,
+    private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) platformId: Object,
   ) {
     this.esNavegador = isPlatformBrowser(platformId);
@@ -76,6 +80,7 @@ export class Chatcomponent implements OnInit {
       error: () => {
         this.error = 'No se pudo abrir el chat de este trueque.';
         this.cargando = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -88,8 +93,12 @@ export class Chatcomponent implements OnInit {
         this.cargando = false;
         this.derivarNombreOtro();
         this.irAlFinal();
+        this.cdr.detectChanges();
       },
-      error: () => (this.cargando = false),
+      error: () => {
+        this.cargando = false;
+        this.cdr.detectChanges();
+      },
     });
   }
 
@@ -98,17 +107,23 @@ export class Chatcomponent implements OnInit {
       next: (p) => {
         this.punto = p ?? undefined;
         this.sincronizarForm();
+        this.cdr.detectChanges();
       },
       // que aún no exista punto de encuentro es un caso normal, no un error visible
-      error: () => (this.punto = undefined),
+      error: () => {
+        this.punto = undefined;
+        this.cdr.detectChanges();
+      },
     });
   }
 
-  // Si no vino el nombre por state, lo deducimos del primer mensaje que no es mío.
+  // Si no vinieron por state (refresh, link directo, volver desde el historial),
+  // deducimos nombre e id del otro participante del primer mensaje que no es mío.
   private derivarNombreOtro(): void {
-    if (this.otroUsuario !== 'Chat del trueque') return;
     const otro = this.mensajes.find((m) => !this.esMio(m));
-    if (otro?.sender?.usernameUser) this.otroUsuario = otro.sender.usernameUser;
+    if (!otro?.sender) return;
+    if (this.otroUsuario === 'Chat del trueque') this.otroUsuario = otro.sender.usernameUser;
+    if (!this.otroId) this.otroId = otro.sender.idUser;
   }
 
   esMio(m: MessageResponse): boolean {
@@ -127,6 +142,7 @@ export class Chatcomponent implements OnInit {
         this.mensajes = [...this.mensajes, m];
         this.nuevoMensaje = '';
         this.irAlFinal();
+        this.cdr.detectChanges();
       },
     });
   }
@@ -142,15 +158,32 @@ export class Chatcomponent implements OnInit {
 
   editarPunto(): void {
     this.editandoPunto = true;
+    this.errorPunto = '';
     this.sincronizarForm();
   }
 
   cancelarEdicion(): void {
     this.editandoPunto = false;
+    this.errorPunto = '';
   }
 
   guardarPunto(): void {
-    if (!this.formPunto.address.trim() || !this.formPunto.scheduledAt) return;
+    if (!this.formPunto.address.trim()) {
+      this.errorPunto = 'Ingresa la dirección del punto de encuentro.';
+      return;
+    }
+    if (!this.formPunto.scheduledAt) {
+      this.errorPunto = 'Elige la fecha y hora del encuentro.';
+      return;
+    }
+    const fechaElegida = new Date(this.formPunto.scheduledAt);
+    if (fechaElegida < new Date()) {
+      this.errorPunto = 'La fecha del encuentro no puede ser en el pasado.';
+      return;
+    }
+
+    this.errorPunto = '';
+    this.guardandoPunto = true;
     const scheduledAt =
       this.formPunto.scheduledAt.length === 16
         ? `${this.formPunto.scheduledAt}:00`
@@ -169,7 +202,14 @@ export class Chatcomponent implements OnInit {
       next: (p) => {
         this.punto = p;
         this.editandoPunto = false;
+        this.guardandoPunto = false;
         this.sincronizarForm();
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.guardandoPunto = false;
+        this.errorPunto = typeof err?.error === 'string' ? err.error : 'No se pudo guardar el punto de encuentro.';
+        this.cdr.detectChanges();
       },
     });
   }
@@ -181,6 +221,7 @@ export class Chatcomponent implements OnInit {
 
   calificar(): void {
     if (!this.otroId || this.puntaje === 0) return;
+    this.errorCalificacion = '';
     this.ratingS
       .crear({
         tradeId: this.tradeId,
@@ -188,7 +229,16 @@ export class Chatcomponent implements OnInit {
         score: this.puntaje,
         comment: this.comentario.trim(),
       })
-      .subscribe({ next: () => (this.calificado = true) });
+      .subscribe({
+        next: () => {
+          this.calificado = true;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          this.errorCalificacion = typeof err?.error === 'string' ? err.error : 'No se pudo enviar la calificación.';
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   volver(): void {

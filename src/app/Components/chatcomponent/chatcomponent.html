@@ -37,10 +37,11 @@
         <label>Fecha y hora</label>
         <input type="datetime-local" [(ngModel)]="formPunto.scheduledAt" />
       </div>
+      <p class="error-mensaje" *ngIf="errorPunto">{{ errorPunto }}</p>
       <div class="punto-form-acciones">
-        <button matButton (click)="cancelarEdicion()">Cancelar</button>
-        <button matButton="elevated" (click)="guardarPunto()">
-          <mat-icon>check</mat-icon> Guardar
+        <button matButton (click)="cancelarEdicion()" [disabled]="guardandoPunto">Cancelar</button>
+        <button matButton="elevated" (click)="guardarPunto()" [disabled]="guardandoPunto">
+          <mat-icon>check</mat-icon> {{ guardandoPunto ? 'Guardando…' : 'Guardar' }}
         </button>
       </div>
     </div>
@@ -101,6 +102,7 @@
       <label>Comentario (opcional)</label>
       <input [(ngModel)]="comentario" placeholder="¿Cómo fue el intercambio?" />
     </div>
+    <p class="error-mensaje" *ngIf="errorCalificacion">{{ errorCalificacion }}</p>
     <button matButton="elevated" (click)="calificar()" [disabled]="puntaje === 0">Calificar</button>
   </div>
 
