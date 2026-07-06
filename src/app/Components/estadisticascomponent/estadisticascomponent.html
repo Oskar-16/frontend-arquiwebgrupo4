@@ -1,0 +1,66 @@
+<div class="estadisticas">
+  <h1>Estadísticas</h1>
+  <p class="sub">Resumen de la actividad de la plataforma.</p>
+
+  <div class="grid">
+    <mat-card class="tarjeta">
+      <h2>Items por categoría</h2>
+      @if (isBrowser) {
+        @if (itemsHasData) {
+          <canvas baseChart
+            [datasets]="itemsData"
+            [labels]="itemsLabels"
+            [options]="itemsOptions"
+            [legend]="true"
+            [type]="itemsType">
+          </canvas>
+        } @else {
+          <div class="vacio">
+            <mat-icon>info_outline</mat-icon>
+            <span>Sin datos</span>
+          </div>
+        }
+      }
+    </mat-card>
+
+    <mat-card class="tarjeta">
+      <h2>Trueques por estado</h2>
+      @if (isBrowser) {
+        @if (truequesHasData) {
+          <canvas baseChart
+            [datasets]="truequesData"
+            [labels]="truequesLabels"
+            [options]="truequesOptions"
+            [legend]="true"
+            [type]="truequesType">
+          </canvas>
+        } @else {
+          <div class="vacio">
+            <mat-icon>info_outline</mat-icon>
+            <span>Sin datos</span>
+          </div>
+        }
+      }
+    </mat-card>
+
+    <mat-card class="tarjeta">
+      <h2>Ranking de usuarios</h2>
+      @if (isBrowser) {
+        @if (rankingHasData) {
+          <canvas baseChart
+            [datasets]="rankingData"
+            [labels]="rankingLabels"
+            [options]="rankingOptions"
+            [legend]="true"
+            [type]="rankingType">
+          </canvas>
+        } @else {
+          <div class="vacio">
+            <mat-icon>info_outline</mat-icon>
+            <span>Sin datos</span>
+          </div>
+        }
+      }
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+  <h1>Reportes de abuso</h1>
+  <p class="sub">Revisa los reportes y actualiza su estado.</p>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef>Motivo</th>
+      <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="reportado">
+      <th mat-header-cell *matHeaderCellDef>Reportado</th>
+      <td mat-cell *matCellDef="let element">{{ element.reportedUserId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let element">{{ element.createdAt }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef>Acción</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field appearance="outline" class="select-estado">
+          <mat-label>Cambiar estado</mat-label>
+          <mat-select [value]="element.status" (selectionChange)="cambiar(element, $event.value)">
+            <mat-option *ngFor="let e of estados" [value]="e">{{ e }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <p class="vacio" *ngIf="!dataSource.data.length">No hay reportes para mostrar.</p>
+</div>

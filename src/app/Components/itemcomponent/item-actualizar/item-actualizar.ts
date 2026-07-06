@@ -80,7 +80,7 @@ export class ItemActualizar implements OnInit {
       },
       error: (err) => {
         this.enviando = false;
-        this.error = err?.error ?? 'NO SE PUDO ACTUALIZAR TU ITEM. :(';
+        this.error = typeof err?.error === 'string' ? err.error : 'NO SE PUDO ACTUALIZAR TU ITEM. :(';
       },
     });
   }
@@ -92,7 +92,7 @@ export class ItemActualizar implements OnInit {
           titulo:data.titleItem,
           descripcion:data.descriptionItem,
           condicion:data.conditionItem,
-          categoria:data.categoryId,
+          categoria:data.category?.idCategory,
         })
       },
       error: () => { this.error = 'No se pudo cargar el ítem.'; },

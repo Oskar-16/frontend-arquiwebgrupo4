@@ -20,4 +20,9 @@ export class Reportservice {
   porUsuario(userId: number) {
     return this.http.get<Report[]>(`${this.url}/user/${userId}`);
   }
+
+  // cambia el estado del reporte (moderacion)
+  cambiarEstado(id: number, status: string) {
+    return this.http.put(`${this.url}/${id}/status`, { status });
+  }
 }

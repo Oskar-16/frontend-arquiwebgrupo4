@@ -29,6 +29,9 @@ export class Explorarcomponent implements OnInit {
   // El texto de búsqueda viene del navbar (SearchService).
   query = this.searchSrv.query;
 
+  // timer para no pedir al backend en cada tecla
+  private busquedaId: any;
+
   // Solo filtramos categoría en el cliente; el texto lo resuelve el backend (HU03).
   itemsFiltrados = computed(() => {
     const cat = this.categoriaSel();
@@ -37,19 +40,23 @@ export class Explorarcomponent implements OnInit {
 
   constructor() {
     // Cuando cambia el texto del buscador pedimos al backend; si está vacío, todos.
+    // Con un pequeño debounce para no consultar en cada tecla.
     effect(() => {
       const q = this.query().trim();
-      if (q.length === 0) {
-        this.cargarTodos();
-      } else {
-        this.itemSrv.buscar(q).subscribe({
-          next: (r) => {
-            this.items.set(r ?? []);
-            this.cargando.set(false);
-          },
-          error: () => this.cargando.set(false),
-        });
-      }
+      clearTimeout(this.busquedaId);
+      this.busquedaId = setTimeout(() => {
+        if (q.length === 0) {
+          this.cargarTodos();
+        } else {
+          this.itemSrv.buscar(q).subscribe({
+            next: (r) => {
+              this.items.set(r ?? []);
+              this.cargando.set(false);
+            },
+            error: () => this.cargando.set(false),
+          });
+        }
+      }, 300);
     });
   }
 

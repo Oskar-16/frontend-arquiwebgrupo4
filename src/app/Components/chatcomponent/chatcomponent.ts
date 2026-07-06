@@ -145,6 +145,10 @@ export class Chatcomponent implements OnInit {
         this.irAlFinal();
         this.cdr.detectChanges();
       },
+      // si falla el envío avisamos y conservamos el texto escrito
+      error: () => {
+        alert('No se pudo enviar el mensaje. Inténtalo de nuevo.');
+      },
     });
   }
 

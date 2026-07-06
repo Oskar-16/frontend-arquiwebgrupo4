@@ -7,9 +7,14 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
-    // El resto de la app se renderiza en el servidor bajo demanda. Evita exigir
-    // getPrerenderParams en rutas con parámetros (p. ej. 'explorar/:id').
-    path: '**',
+    // El login no requiere sesión, se renderiza en el servidor.
+    path: 'login',
     renderMode: RenderMode.Server,
+  },
+  {
+    // El resto son rutas protegidas que dependen del token del navegador; se
+    // renderizan en el cliente para no intentar renderizarlas en el server.
+    path: '**',
+    renderMode: RenderMode.Client,
   },
 ];

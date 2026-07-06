@@ -64,7 +64,7 @@ export class ItemInsertar implements OnInit {
       next: () => this.router.navigate(['/items/listaritem']),
       error: (err) => {
         this.enviando = false;
-        this.error = err?.error ?? 'No se pudo publicar el item.';
+        this.error = typeof err?.error === 'string' ? err.error : 'No se pudo publicar el item.';
       },
     });
   }

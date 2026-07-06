@@ -1,0 +1,30 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+}
+.sub {
+  color: #5f6368;
+  font-size: 13px;
+  margin: 4px 0 20px;
+}
+
+table {
+  width: 100%;
+}
+
+.select-estado {
+  width: 160px;
+}
+
+.vacio {
+  color: #5f6368;
+  text-align: center;
+  padding: 24px 0;
+}

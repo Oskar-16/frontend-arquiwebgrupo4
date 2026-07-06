@@ -55,7 +55,7 @@ export class CategoryInsertar implements OnInit {
         },
         error: (err) => {
           this.enviando = false;
-          this.error = err?.error ?? 'No se pudo ingresar la categoria';
+          this.error = typeof err?.error === 'string' ? err.error : 'No se pudo ingresar la categoria';
         },
       });
     }

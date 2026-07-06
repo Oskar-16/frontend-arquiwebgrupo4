@@ -26,6 +26,8 @@ import { Chatcomponent } from './Components/chatcomponent/chatcomponent';
 import { Ofertascomponent } from './Components/ofertascomponent/ofertascomponent';
 import { Premiumcomponent } from './Components/premiumcomponent/premiumcomponent';
 import { Adminpremiumcomponent } from './Components/adminpremiumcomponent/adminpremiumcomponent';
+import { Estadisticascomponent } from './Components/estadisticascomponent/estadisticascomponent';
+import { Moderacioncomponent } from './Components/moderacioncomponent/moderacioncomponent';
 
 export const routes: Routes = [
     {
@@ -113,10 +115,6 @@ export const routes: Routes = [
                 ]
             },
             {
-                path: 'trueques',
-                component: Truequecomponent
-            },
-            {
                 path: 'perfil',
                 component: Profilecomponent
             },
@@ -153,6 +151,18 @@ export const routes: Routes = [
                 // HU07 - Validación de premium por el staff
                 path: 'admin/premium',
                 component: Adminpremiumcomponent,
+                canActivate: [adminGuard]
+            },
+            {
+                // Panel de estadisticas (admin)
+                path: 'estadisticas',
+                component: Estadisticascomponent,
+                canActivate: [adminGuard]
+            },
+            {
+                // Moderacion de reportes de abuso (admin)
+                path: 'admin/reportes',
+                component: Moderacioncomponent,
                 canActivate: [adminGuard]
             },
             {

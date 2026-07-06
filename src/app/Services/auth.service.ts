@@ -45,7 +45,15 @@ export class AuthService {
   }
 
   estaLogueado(): boolean {
-    return this.obtenerToken() !== null;
+    const token = this.obtenerToken();
+    if (!token) return false;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // exp viene en segundos; false si ya expiró
+      return payload.exp > Date.now() / 1000;
+    } catch {
+      return false;
+    }
   }
 
   logout(): void {

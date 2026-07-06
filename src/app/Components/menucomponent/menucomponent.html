@@ -28,6 +28,8 @@
       @if (esAdmin()) {
         <a matButton routerLink="/kyc" routerLinkActive="activo">Verificación</a>
         <a matButton routerLink="/admin/premium" routerLinkActive="activo">Usuarios</a>
+        <a matButton routerLink="/estadisticas" routerLinkActive="activo">Estadísticas</a>
+        <a matButton routerLink="/admin/reportes" routerLinkActive="activo">Reportes</a>
         <button matButton [matMenuTriggerFor]="menuCategories">Categorias</button>
         <mat-menu #menuCategories="matMenu">
           <a mat-menu-item routerLink="/categories/listar">Todas las categorias</a>

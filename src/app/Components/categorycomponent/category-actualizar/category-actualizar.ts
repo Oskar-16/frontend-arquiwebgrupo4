@@ -60,7 +60,7 @@ export class CategoryActualizar implements OnInit {
       },
       error: (err) => {
         this.enviando = false;
-        this.error = err?.error ?? 'NO SE PUDO ACTUALIZAR TU CATEGORIA. :(';
+        this.error = typeof err?.error === 'string' ? err.error : 'NO SE PUDO ACTUALIZAR TU CATEGORIA. :(';
       },
     })
   }
