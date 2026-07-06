@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../Services/auth.service';
 import { RegisterRequest } from '../../Models/RegisterRequest';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'app-registrocomponent',
@@ -37,6 +38,23 @@ export class Registrocomponent {
   registrarse(): void {
     this.error = '';
     this.cargando = true;
+
+    let Checklist: User[] = [
+      { idUser: 1, emailUser: "", usernameUser: "", is_enabledUser: true },
+      { idUser: 1, emailUser: "", usernameUser: "", is_enabledUser: true },
+      { idUser: 1, emailUser: "", usernameUser: "", is_enabledUser: true }
+    ];
+
+    const alternarTarea = (id: number): User[] => {
+  return Checklist.map((tarea) => 
+    tarea.idUser === id ? { ...tarea, completado: !tarea.is_enabledUser } : tarea
+  );
+};
+
+Checklist = alternarTarea(2);
+
+const tareasPendientes = Checklist.filter(tarea => !tarea.is_enabledUser).length;
+console.log(`Tareas pendientes: ${tareasPendientes}`);
 
     this.authService.registrar(this.datos).subscribe({
       next: () => {
