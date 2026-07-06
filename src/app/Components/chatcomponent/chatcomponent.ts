@@ -5,11 +5,13 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { Chatservice } from '../../Services/chatservice';
 import { AuthService } from '../../Services/auth.service';
 import { Ratingservice } from '../../Services/ratingservice';
 import { ChatResponse, MessageResponse, MeetingPointResponse } from '../../Models/chat';
+import { enviroment } from '../../../Enviroments/enviroments.developments';
 
 // HU11 - Chat interno del trueque (mensajes + punto de encuentro)
 @Component({
@@ -25,6 +27,8 @@ export class Chatcomponent implements OnInit {
   chat?: ChatResponse;
   mensajes: MessageResponse[] = [];
   punto?: MeetingPointResponse;
+  // mapa embebido del punto de encuentro
+  mapaUrl?: SafeResourceUrl;
 
   otroUsuario = 'Chat del trueque';
   otroId = 0;
@@ -54,6 +58,7 @@ export class Chatcomponent implements OnInit {
     private auth: AuthService,
     private ratingS: Ratingservice,
     private cdr: ChangeDetectorRef,
+    private sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) platformId: Object,
   ) {
     this.esNavegador = isPlatformBrowser(platformId);
@@ -107,6 +112,7 @@ export class Chatcomponent implements OnInit {
     this.chatS.puntoDeTrade(this.tradeId).subscribe({
       next: (p) => {
         this.punto = p ?? undefined;
+        this.actualizarMapa();
         this.sincronizarForm();
         this.cdr.detectChanges();
       },
@@ -153,6 +159,17 @@ export class Chatcomponent implements OnInit {
   }
 
   // ---- punto de encuentro ----
+  // arma la url del mapa embebido con la direccion del punto
+  private actualizarMapa(): void {
+    if (!this.punto?.address) {
+      this.mapaUrl = undefined;
+      return;
+    }
+    const q = encodeURIComponent(this.punto.address);
+    const url = `https://www.google.com/maps/embed/v1/place?key=${enviroment.googleMapsApiKey}&q=${q}&zoom=16`;
+    this.mapaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
   private sincronizarForm(): void {
     this.formPunto = {
       address: this.punto?.address ?? '',
@@ -206,6 +223,7 @@ export class Chatcomponent implements OnInit {
     peticion.subscribe({
       next: (p) => {
         this.punto = p;
+        this.actualizarMapa();
         this.editandoPunto = false;
         this.guardandoPunto = false;
         this.sincronizarForm();

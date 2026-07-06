@@ -36,6 +36,14 @@
         <span class="muted" *ngIf="punto"><mat-icon>schedule</mat-icon> {{ punto.scheduledAt | date: 'EEE d MMM · h:mm a' }}</span>
         <button matButton (click)="editarPunto()">{{ punto ? 'Editar' : 'Fijar' }}</button>
       </div>
+      <iframe
+        class="mapa-punto"
+        *ngIf="punto && mapaUrl"
+        [src]="mapaUrl"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mapa del punto de encuentro"
+      ></iframe>
     </ng-container>
 
     <div class="punto-form" *ngIf="editandoPunto">
