@@ -25,6 +25,8 @@ export class Explorarcomponent implements OnInit {
   items = signal<ItemResponse[]>([]);
   categorias = signal<Category[]>([]);
   categoriaSel = signal<number | null>(null); // null = "Todos"
+  pagina = signal(0);
+  totalPaginas = signal(0);
 
   // El texto de búsqueda viene del navbar (SearchService).
   query = this.searchSrv.query;
@@ -65,9 +67,10 @@ export class Explorarcomponent implements OnInit {
   }
 
   private cargarTodos(): void {
-    this.itemSrv.listResponse().subscribe({
-      next: (items) => {
-        this.items.set(items ?? []);
+    this.itemSrv.listPaged(this.pagina(), 10).subscribe({
+      next: (resp) => {
+        this.items.set(resp.content ?? []);
+        this.totalPaginas.set(resp.totalPages ?? 0);
         this.cargando.set(false);
       },
       error: () => this.cargando.set(false),
@@ -76,6 +79,22 @@ export class Explorarcomponent implements OnInit {
 
   seleccionarCategoria(id: number | null): void {
     this.categoriaSel.set(id);
+  }
+
+  siguientePagina(): void {
+    if (this.pagina() + 1 < this.totalPaginas()) {
+      this.pagina.set(this.pagina() + 1);
+      this.cargando.set(true);
+      this.cargarTodos();
+    }
+  }
+
+  anteriorPagina(): void {
+    if (this.pagina() > 0) {
+      this.pagina.set(this.pagina() - 1);
+      this.cargando.set(true);
+      this.cargarTodos();
+    }
   }
 
   estadoTexto(s: number): string {

@@ -16,9 +16,9 @@ export class Itemservice {
         return this.http.get<Item[]>(this.url);
     }
 
-    // Respuesta tipada del backend (incluye user y category) para listar/detalle.
-    listResponse() {
-        return this.http.get<ItemResponse[]>(this.url);
+    // Listado paginado (usado en Explorar). El backend devuelve un Page de Spring Data.
+    listPaged(page = 0, size = 10) {
+        return this.http.get<any>(this.url, { params: { page, size } });
     }
 
     listIdResponse(id: number) {

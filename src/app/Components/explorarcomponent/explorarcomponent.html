@@ -43,5 +43,27 @@
         </mat-card>
       }
     </div>
+
+    <div class="paginador">
+      <button
+        type="button"
+        class="paginador__btn"
+        (click)="anteriorPagina()"
+        [disabled]="pagina() === 0"
+        aria-label="Página anterior">
+        <mat-icon>chevron_left</mat-icon>
+        Anterior
+      </button>
+      <span class="paginador__info">Página {{ pagina() + 1 }} de {{ totalPaginas() }}</span>
+      <button
+        type="button"
+        class="paginador__btn"
+        (click)="siguientePagina()"
+        [disabled]="pagina() + 1 >= totalPaginas()"
+        aria-label="Página siguiente">
+        Siguiente
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
   }
 </div>

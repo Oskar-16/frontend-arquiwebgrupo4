@@ -56,8 +56,9 @@ export class ItemDetalle implements OnInit {
     this.truequeError.set('');
     this.proposerItemIds = [];
     const miEmail = this.authSrv.obtenerEmail();
-    this.itemSrv.listResponse().subscribe({
-      next: (items) => {
+    this.itemSrv.listPaged(0, 1000).subscribe({
+      next: (resp) => {
+        const items: ItemResponse[] = resp.content ?? [];
         this.misItems.set(
           items.filter((i) => i.user?.emailUser === miEmail && i.statusItem === 1),
         );

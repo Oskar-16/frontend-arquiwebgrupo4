@@ -141,3 +141,50 @@
   background: #e2e6ef;
   color: #4a546b;
 }
+
+/* Paginador */
+.paginador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.paginador__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #cfe3d4;
+  background: #fff;
+  color: #2f6b3a;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.paginador__btn mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.paginador__btn:hover:not(:disabled) {
+  background: #eef7f0;
+  box-shadow: 0 2px 8px rgba(47, 107, 58, 0.15);
+}
+
+.paginador__btn:disabled {
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+}
+
+.paginador__info {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
